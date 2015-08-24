@@ -14,12 +14,12 @@
     ));
     //load template file
     $twig->setCache(false);
-    $template = $twig->loadTemplate('index.html');
+    $template = $twig->loadTemplate('dashboard.html');
     
     $query = new ParseQuery("loan");
     $query->equalTo("status",1);
     $results = $query->find();
     //render a template
-    echo $template->render(array('title' => 'eLoan'));
+    echo $template->render(array('title' => 'Самбар'));
 ?>
 
