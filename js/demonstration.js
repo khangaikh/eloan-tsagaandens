@@ -77,7 +77,7 @@ function currentTime(){
 	var $el = $(".stats .icon-calendar").parent(),
 	currentDate = new Date(),
 	monthNames = [ "January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December" ],
+	"July", "8-р сарын", "September", "October", "November", "December" ],
 	dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 	$el.find(".details .big").html(monthNames[currentDate.getMonth()] + " " + currentDate.getDate() + ", " + currentDate.getFullYear());
@@ -123,14 +123,15 @@ $(document).ready(function() {
 	if($(".usertable").length > 0){
 		var opt = {
 			"sPaginationType": "full_numbers",
+			"iDisplayLength" : 50,
 			"oLanguage":{
-				"sSearch": "<span>Search:</span> ",
-				"sInfo": "Showing <span>_START_</span> to <span>_END_</span> of <span>_TOTAL_</span> entries",
-				"sLengthMenu": "_MENU_ <span>entries per page</span>"
+				"sSearch": "<span>Хайлт:</span> ",
+				"sInfo": " <span>_START_</span> -c <span>_END_</span> нийт <span>_TOTAL_</span> мэдээлэл байна",
+				"sLengthMenu": "_MENU_ <span>хуудасны хэмжээ</span>"
 			},
 			'sDom': "lfrtip",
 			'aoColumnDefs' : [
-			{ 'bSortable': false, 'aTargets': [0, 5] }
+			{ 'bSortable': true, 'aTargets': [0, 5] }
 			],
 			'oColVis': {
 				"buttonText": "Change columns <i class='icon-angle-down'></i>"
@@ -140,17 +141,18 @@ $(document).ready(function() {
 			}
 		};
 		var oTable = $('.usertable').dataTable(opt);
-
-		$('.dataTables_filter input').attr("placeholder", "Search here...");
+		$('.dataTables_filter input').attr("placeholder", "...");
 		$(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
 			disable_search_threshold: 9999999
 		});
+
 		$("#check_all").click(function(e){
 			$('input', oTable.fnGetNodes()).prop('checked',this.checked);
 		});
 		$.datepicker.setDefaults( {
 			dateFormat: "dd-mm-yy"
 		});
+
 		oTable.columnFilter({
 			"sPlaceHolder" : "head:after",
 			'sRangeFormat': "{from}{to}",

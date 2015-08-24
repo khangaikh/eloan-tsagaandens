@@ -1,3 +1,9 @@
+//Custom js
+
+function route(){
+    alert("hi");     
+}
+
 // FLAT Theme v2.0
 function sidebarFluid(){
    if($("#left").hasClass("sidebar-fixed")){

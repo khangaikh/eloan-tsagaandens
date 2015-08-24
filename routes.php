@@ -1,5 +1,5 @@
 <?php
-    require_once 'includes/Twig/Autoloader.php';
+	require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
     use Parse\ParseObject;
     use Parse\ParseQuery;
@@ -15,23 +15,12 @@
     //load template file
         $twig->setCache(false);
     
-    if(empty($_GET["cid"])){
-        $template = $twig->loadTemplate('dashboard.html');
-        $query = new ParseQuery("loan");
-        $query->equalTo("status",1);
-        $results = $query->find();
-        //render a template
-        echo $template->render(array('title' => 'Самбар')); 
-    }else if($_GET["cid"]==2){
+   
        $template = $twig->loadTemplate('add_loan.html');
         $query = new ParseQuery("loan");
         $query->equalTo("status",1);
         $results = $query->find();
         //render a template
         echo $template->render(array('title' => 'Шинэ зээл'));  
-    }
-    
-    
     
 ?>
-    
