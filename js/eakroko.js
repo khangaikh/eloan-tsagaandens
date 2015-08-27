@@ -145,7 +145,7 @@ $(document).ready(function() {
 
 	// masked input
 	if($('.mask_date').length > 0){
-		$(".mask_date").mask("9999/99/99");	
+		$(".mask_date").mask("9999-99-99");	
 	}
 	if($('.mask_phone').length > 0){
 		$(".mask_phone").mask("(999) 999-9999");

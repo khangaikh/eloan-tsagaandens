@@ -21,7 +21,7 @@
         $query->equalTo("status",1);
         $results = $query->find();
         //render a template
-        echo $template->render(array('title' => 'Самбар')); 
+        echo $template->render(array('title' => 'Самбар', 'loans' => $results)); 
     }else if($_GET["cid"]==2){
        $template = $twig->loadTemplate('add_loan.html');
         $query = new ParseQuery("loan");

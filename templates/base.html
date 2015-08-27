@@ -22,6 +22,8 @@
 			<link rel="stylesheet" href="css/plugins/chosen/chosen.css">
 			<!-- Theme CSS -->
 			<link rel="stylesheet" href="css/style.css">
+			<!-- Notify -->
+			<link rel="stylesheet" href="css/plugins/gritter/jquery.gritter.css">
 			<!-- Color CSS -->
 			<link rel="stylesheet" href="css/themes.css">
 			<!--[if lte IE 9]>
@@ -45,7 +47,7 @@
 			<a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
 			<ul class='main-nav'>
 				<li class='active'>
-					<a href="dashboard.html">
+					<a href="index.php">
 						<span>Самбар</span>
 					</a>
 				</li>
@@ -313,6 +315,7 @@
 				
 			</div>
 			{% block footer %}
+
 				<!-- jQuery -->
 				<script src="js/jquery.min.js"></script>
 				<!-- Nice Scroll -->
@@ -333,19 +336,21 @@
 				<!-- Bootbox -->
 				<script src="js/plugins/bootbox/jquery.bootbox.js"></script>
 				<!-- dataTables -->
+				<!-- dataTables -->
 				<script src="js/plugins/datatable/jquery.dataTables.min.js"></script>
 				<script src="js/plugins/datatable/TableTools.min.js"></script>
-				<script src="js/plugins/datatable/ColReorderWithResize.js"></script>
+				<script src="js/plugins/datatable/ColReorder.min.js"></script>
 				<script src="js/plugins/datatable/ColVis.min.js"></script>
+				<script src="js/plugins/datatable/FixedColumns.min.js"></script>
+				<script src="js/plugins/datatable/dataTables.scroller.min.js"></script>
 				<script src="js/plugins/datatable/jquery.dataTables.columnFilter.js"></script>
-				<script src="js/plugins/datatable/jquery.dataTables.grouping.js"></script>
 				<!-- Chosen -->
 				<script src="js/plugins/chosen/chosen.jquery.min.js"></script>
 
 				<!-- Theme framework -->
-				<script src="js/eakroko.min.js"></script>
+				<script src="js/eakroko.js"></script>
 				<!-- Theme scripts -->
-				<script src="js/application.min.js"></script>
+				<script src="js/application.js"></script>
 				<!-- Just for demonstration -->
 				<script src="js/demonstration.js"></script>
 			{% endblock %}

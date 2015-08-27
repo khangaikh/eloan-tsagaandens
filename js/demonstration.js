@@ -78,7 +78,7 @@ function currentTime(){
 	currentDate = new Date(),
 	monthNames = [ "January", "February", "March", "April", "May", "June",
 	"July", "8-р сарын", "September", "October", "November", "December" ],
-	dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	dayNames = ["Sunday","Даваа","Мягмар","Лхагва","Пүрэв","Баасан","Saturday"];
 
 	$el.find(".details .big").html(monthNames[currentDate.getMonth()] + " " + currentDate.getDate() + ", " + currentDate.getFullYear());
 	$el.find(".details span").last().html(dayNames[currentDate.getDay()] + ", " + currentDate.getHours()+":"+ ("0" + currentDate.getMinutes()).slice(-2));
@@ -131,7 +131,7 @@ $(document).ready(function() {
 			},
 			'sDom': "lfrtip",
 			'aoColumnDefs' : [
-			{ 'bSortable': true, 'aTargets': [0, 5] }
+			{ 'bSortable': true, 'aTargets': [0,10] }
 			],
 			'oColVis': {
 				"buttonText": "Change columns <i class='icon-angle-down'></i>"
@@ -140,6 +140,10 @@ $(document).ready(function() {
 				"sSwfPath": "js/plugins/datatable/swf/copy_csv_xls_pdf.swf"
 			}
 		};
+
+		opt.sScrollX = "100%";
+		//opt.bScrollCollapse = true;
+			
 		var oTable = $('.usertable').dataTable(opt);
 		$('.dataTables_filter input').attr("placeholder", "...");
 		$(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
@@ -159,6 +163,32 @@ $(document).ready(function() {
 			'aoColumns': [
 			null,
 			{
+				type: "select",
+				bCaseSensitive:true,
+				values: ['Яаралтай', 'Энгийн', 'Disabled']
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
 				type: "text",
 			},
 			{
@@ -167,15 +197,12 @@ $(document).ready(function() {
 			{
 				type: "select",
 				bCaseSensitive:true,
-				values: ['Active', 'Inactive', 'Disabled']
-			},
-			{
-				type: "date-range"
-			},
-			null
+				values: ['Шинэ', 'Энгийн', 'Алдангитай']
+			}
 			]
 		});
 		$(".usertable").css("width", '100%');
+		
 	}
 
 	var $left = $("#left");

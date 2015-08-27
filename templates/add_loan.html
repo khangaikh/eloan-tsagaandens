@@ -1,0 +1,599 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box box-bordered box-color">
+				<div class="box-title">
+					<h3><i class="icon-reorder"></i> Зээлийн мэдээлэл оруулах</h3>
+				</div>
+				<div class="box-content nopadding">
+					<div class="tabs-container">
+						<ul class="tabs tabs-inline tabs-left">
+							<li class='active'>
+								<a href="#first" data-toggle='tab'><i class="icon-check"></i> Ерөнхий </a>
+							</li>
+							<li >
+								<a href="#second" data-toggle='tab'><i class="icon-user"></i> Үйлчлүүлэгч</a>
+							</li>
+							<li>
+								<a href="#third" data-toggle='tab'><i class="icon-book"></i> Барьцаа</a>
+							</li>
+							<li>
+								<a href="#fourth" data-toggle='tab'><i class="icon-file"></i> Файл </a>
+							</li>
+							<li>
+								<a href="#fifth" data-toggle='tab'><i class="icon-edit"></i> Бусад</a>
+							</li>
+							<li>
+								<a href="#sixth" data-toggle='tab' onclick="summary();"><i class="icon-ok"></i> Нэгтгэл</a>
+							</li>
+						</ul>
+					</div>
+					<form id="new_loan" class='form-validate'  enctype='multipart/form-data'>
+						<div class="tab-content padding tab-content-inline">
+							<div class="tab-pane active" id="first">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class='form-horizontal form-validate form-column form-bordered ' >
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">Зээлийн төрөл</label>
+													<div class="controls ">
+														<select name="loan_type" id="loan_type" class='input-large' data-rule-required="true">
+															<option value="Яаралтай">Яаралтай</option>
+															<option value="Энгийн">Энгийн</option>
+															<option value="Бусад">Бусад</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="control-group">
+													<label for="password" class="control-label">Сарын хүү</label>
+													<div class="controls">
+														<select name="rate" id="rate" class='input-large' data-rule-required="true">
+															<option value="3">3%</option>
+															<option value="3.5">3.5%</option>
+															<option value="4">4%</option>
+															<option value="4.5">4.5%</option>
+															<option value="5">5%</option>
+															<option value="5.5">5.5%</option>
+															<option value="6">6%</option>
+															<option value="6.5">6.5%</option>
+														</select>
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label">Хугацаа</label>
+													<div class="controls">
+														<label class='radio'>
+															<input type="radio" name="duration" value="6" checked> 6 сар
+														</label>
+														<label class='radio'>
+															<input type="radio" name="duration" value="12"> 12 сар
+														</label>
+														<label class='radio'>
+															<input type="radio" name="duration" value="18"> 18 сар
+														</label>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Зээлийн хэмжээ</label>
+													<div class="controls">
+														<div class="input-append">
+															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="loan_total" id="loan_total">
+															<span class="add-on">₮</span>
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="numberfield" class="control-label">Эхлэх огноо</label>
+													<div class="controls">
+														<input type="text" name="start" id="start" class="input-medium datepick"  data-rule-required="true" data-rule-dateISO="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label">Алданги</label>
+													<div class="controls">
+														<label class='checkbox'>
+															<input type="checkbox" name="loss"> Илүү хонгоор
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>
+							<div class="tab-pane" id="second">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class='form-horizontal form-column form-bordered'>
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">Нэр</label>
+													<div class="controls">
+														<input type="text" name="name" id="name" class="input-xlarge" data-rule-required="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Овог</label>
+													<div class="controls">
+														<input type="text" name="surname" id="surname" class="input-xlarge" data-rule-required="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Ургын овог</label>
+													<div class="controls">
+														<input type="text" name="family_name" id="family_name" class="input-xlarge">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label">Хүйс</label>
+													<div class="controls">
+														<select name="gender" id="gender" class='input-large' data-rule-required="true">
+															<option value="female">Эр</option>
+															<option value="male">Эм</option>
+														</select>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Хаяг</label>
+													<div class="controls">
+														<textarea name="address" id="address" rows="5" class="input-block-level" data-rule-required="true">.. </textarea>
+													</div>
+												</div>
+												
+											</div>
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">РД</label>
+													<div class="controls">
+														<input type="text" name="register_number" id="register_number" class="input-xlarge" data-rule-required="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Гар утас</label>
+													<div class="controls">
+														<input type="text" name="mobile" id="mobile" class="input-xlarge" data-rule-required="true" data-rule-digits="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Цахим шуудан</label>
+													<div class="controls">
+														<input type="text" name="email" id="email" class="input-xlarge" data-rule-email="true">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Хот</label>
+													<div class="controls">
+														<select name="city" id="city" class='input-large' data-rule-required="true">
+															<option value="">Улаанбаатар</option>
+															<option value="3">Эрдэнэт</option>
+															<option value="3.5">Дархан</option>
+														</select>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Бусад мэдээлэл</label>
+													<div class="controls">
+														<textarea name="more_info" id="more)info" rows="5" class="input-block-level">.. </textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="third">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class='form-horizontal form-column form-bordered'>
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">Барьцааны төрөл</label>
+													<div class="controls">
+														<select name="mortage_type" id="mortage_type" class='input-large' data-rule-required="true">
+															<option value="Авто машин">Авто машин</option>
+															<option value="Хашаа байшин<">Хашаа байшин</option>
+															<option value="Орон сууц">Орон сууц</option>
+															<option value="Үл хөдлөх">Үл хөдлөх</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="control-group">
+													<div class="control-group">
+														<label for="textfield" class="control-label">Хөрөнгийн нэр</label>
+														<div class="controls">
+															<input type="text" name="mortage_name" id="textfield" class="input-xlarge" data-rule-required="true">
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<div class="control-group">
+														<label for="textfield" class="control-label">Хэний өмч болох</label>
+														<div class="controls">
+															<input type="text" name="mortage_owner" id="mortage_owner" class="input-xlarge" data-rule-required="true">
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<div class="control-group">
+														<label for="textfield" class="control-label">Гэрчилгээний дугаар</label>
+														<div class="controls">
+															<input type="text" name="mortage_no" id="mortage_no" class="input-xlarge" data-rule-required="true">
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Бусад мэдээлэл</label>
+													<div class="controls">
+														<textarea name="mortage_more" id="mortage_more" rows="5" class="input-block-level">.. </textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="fourth">
+								<div class="row-fluid">
+									<div class="span12">
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">Иргэний үнэмлэх</label>
+													<div class="controls">
+														<div class="fileupload fileupload-new" data-provides="fileupload">
+															<div class="input-append">
+																<div class="uneditable-input"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Файл хайх</span><span class="fileupload-exists">Өөрлчөх</span><input type="file" name="pass"  id="pass"/></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Устгах</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Ажлын газрын тодорхойлолт</label>
+													<div class="controls">
+														<div class="fileupload fileupload-new" data-provides="fileupload">
+															<div class="input-append">
+																<div class="uneditable-input"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Файл хайх</span><span class="fileupload-exists">Өөрлчөх</span><input type="file" name="agt" id ="agt"/></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Устгах</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Оршин суугаа газрын тодорхойлолт</label>
+													<div class="controls">
+														<div class="fileupload fileupload-new" data-provides="fileupload">
+															<div class="input-append">
+																<div class="uneditable-input"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Файл хайх</span><span class="fileupload-exists">Өөрлчөх</span><input type="file" name="osgt" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Устгах</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textfield" class="control-label">Барьцаа хөрөнгийн гэрчилгээ</label>
+													<div class="controls">
+														<div class="fileupload fileupload-new" data-provides="fileupload">
+															<div class="input-append">
+																<div class="uneditable-input"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Файл хайх</span><span class="fileupload-exists">Өөрлчөх</span><input type="file" name="bhgd" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Устгах</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="fifth">
+								<div class="span12">
+										<div class='form-horizontal form-column form-bordered'>
+											<div class="span6">
+												<div class="control-group">
+													<label for="textarea" class="control-label">Нэмэлт тэмдэглэлгээ</label>
+													<div class="controls">
+														<textarea name="extra" id="extra" rows="5" class="input-block-level">.. </textarea>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Барьцаа хөрөнгийн үнэлгээ</label>
+													<div class="controls">
+														<textarea name="mortage_extra" id="mortage_extra" rows="5" class="input-block-level">.. </textarea>
+													</div>
+												</div>
+											</div>
+										</div>									
+									</div>
+							</div>
+							<div class="tab-pane" id="sixth">
+								<div class="span12">
+									<div class='form-horizontal form-column form-bordered'>
+										<div class="row-fluid">
+											<div class="span12">
+												<div class='form-horizontal form-column form-bordered'>
+													<div class="span6">
+														<div class="control-group">
+															<label for="textfield" class="control-label">Нэр</label>
+															<div class="controls">
+																<input type="text" name="name_a" id="name_a" class="input-xlarge">
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Утас</label>
+															<div class="controls">
+																<input type="text" name="mobile_a" id="mobile_a" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Барьцаа</label>
+															<div class="controls">
+																<input type="text" name="mortage_a" id="mortage_a" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label">Зээл</label>
+															<div class="controls">
+																<input type="text" name="loan_total_a" id="loan_total_a" class="input-xlarge" disabled data-rule-required="true"> 
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textarea" class="control-label">Хүү</label>
+															<div class="controls">
+																<input type="text" name="rate_a" id="rate_a" class="input-xlarge" disabled >
+															</div>
+														</div>
+														
+													</div>
+													<div class="span6">
+														<div class="control-group">
+															<label for="textfield" class="control-label">Эргэн төлөх</label>
+															<div class="controls">
+																<input type="text" name="type_a" id="type_a" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Сарын төлбөр</label>
+															<div class="controls">
+																<input type="text" name="daily_rate" id="daily_rate" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Нийт хүү</label>
+															<div class="controls">
+																<input type="text" name="register_a" id="register_a" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Эхлэх огноо</label>
+															<div class="controls">
+																<input type="text" name="start_a" id="start_a" class="input-xlarge" disabled>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Хугацаа</label>
+															<div class="controls">
+																<input type="text" name="duration_a" id="duration_a" class="input-xlarge"  disabled>
+															</div>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-actions">
+											<button type="button" class="btn btn-primary" onclick="sender();" id ="send" ><i class="icon-refresh"></i> Бүртгэх</button>
+											<button type="button" class="btn" onclick="dashboard();" id="cancel">Цуцлах</button>
+										</div>
+										<div id="warnings">
+
+										</div>
+										<div id="grafik" style="display:none">
+											<div class="row-fluid">
+												<div class="span6">
+													<div class="box">
+														<div class="box-title">
+															<h3>
+																<i class="icon-table"></i>
+																График төлөлт
+															</h3>
+														</div>
+														<div class="box-content nopadding">
+															<table class="table table-hover table-nomargin table-condensed table-striped ligthgrey">
+																<thead>
+																	<tr>
+																		<th class='with-checkbox'>#</th>
+																		<th>Төлөх огноо</th>
+																		<th class='hidden-350'>Сарын төлбөр</th>
+																		<th class='hidden-1024'>Хүү</th>
+																		<th class='hidden-480'>Үндсэн өр</th>
+																		<th class='hidden-480'>Эцсийн vлдэгдэл</th>
+																	</tr>
+																</thead>
+																<tbody id="grafik-unit">
+																	
+																</tbody>
+															</table>
+														</div>
+														<br />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>									
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block footer %}
+	{{parent()}}
+	<script type="text/javascript">
+		function pmt(amount, interest, term) {
+		    var princ = amount;
+			var term  = term
+			var intr   = (interest / 1200)*12;
+	      	var pmt = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
+	      	return pmt;
+		 }
+		 function summary() {
+            var name = $("#name").val();
+            var surname = $("#surname").val();
+            var fullname = name+" "+surname;
+            var mobile = $("#mobile").val();
+            var mortage = $("#mortage_type").val();
+            var loan_total = $("#loan_total").val();
+            var rate = $("#rate").val();
+            var type = $("#loan_type").val();
+            var register = $("#register_number").val();
+            var start = $("#start").val();
+            var duration = $('input:radio:checked').val();
+            var monthly = pmt(loan_total,rate,duration).toFixed(2);
+            var net_debt = (monthly * duration).toFixed(2);
+            var net_rate = (net_debt - loan_total).toFixed(2);
+
+            $("#name_a").val(fullname);
+            $("#mobile_a").val(mobile);
+            $("#mortage_a").val(mortage);
+            $("#loan_total_a").val(loan_total);
+            $("#rate_a").val(rate);
+            $("#type_a").val(net_debt);
+            $("#register_a").val(net_rate);
+            $("#start_a").val(start);
+            $("#duration_a").val(duration);
+            $("#daily_rate").val(monthly);
+
+        }
+        function dashboard(){
+        	location.reload();
+        }
+
+        function sender() {
+			var o = {};
+	        var a = $("#new_loan").serializeArray();
+	        $.each(a, function () {
+	            if (o[this.name]) {
+	                if (!o[this.name].push) {
+	                    o[this.name] = [o[this.name]];
+	                }
+	                o[this.name].push(this.value || '');
+	            } else {
+	                o[this.name] = this.value || '';
+	            }
+	        });
+
+	        var duration = o['duration'];
+	        var rate = o['rate'];
+	        var amount = o['loan_total']; 
+	        var monthly = pmt(amount,rate,duration).toFixed(2);
+	        var start = o['start']; 
+	        //return;
+	        for (var i=0; i < duration; i++){
+	        	var d = new Date(start);
+                var m = moment(d);
+                var j = i+1;
+                m.add(j, 'months'); 
+                var month_rate = (amount * (rate / 100)).toFixed(2);
+                var normal_debt = (monthly - month_rate).toFixed(2);
+                var left_debt = (amount - normal_debt).toFixed(2);
+	        	$("#grafik-unit").append("<tr><td>"+j+"</td><td>"+m.format("YYYY-MM-DD")+"</td><td>"+monthly+"</td><td>"+month_rate+"</td><td>"+normal_debt+"</td><td>"+left_debt+"</td></tr>");	
+	        	amount = left_debt;
+	        }
+	        
+	        /*
+	        Parse.initialize("GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr", "0WKtvJn4QC4xm7RbCLcO5PDwwatySgvXCDzJrvlx");
+	        var fileUploadControl = $("#pass")[0];
+	        var parseFile;
+	        var file;
+			if (fileUploadControl.files.length > 0) {
+			  file = fileUploadControl.files[0];
+			  var name = "photo.jpg";
+
+			  parseFile = new Parse.File(name, file);
+			  parseFile.save();
+			  //alert(file);
+			}*/
+	        var check = 0;
+	        if(o['name']=="" || o['surname']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх!</strong> Үйлчлүүлэгчийн овог нэр.</div>");
+	        	 check =1;
+	        }
+	        if(o['mobile']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Үйлчлүүлэгчийн утаны дугаар.</div>");
+	        	 check =1;
+	        }
+	        if(o['loan_total']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Зээлийн хэмжээ.</div>");
+	        	 check =1;
+	        }
+	        if(o['rate']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Зээлийн хүү.</div>");
+	        	 check =1;
+	        }
+	        if(o['start']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Зээлийн эхлэх огноо.</div>");
+	        	 check =1;
+	        }
+	        if(o['duration']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Зээлийн хугацаа.</div>");
+	        	 check =1;
+	        }
+	        if(o['mortage_no']=="" ){
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Барьцаа хөрөнгийн дугаар.</div>");
+	        	 check =1;
+	        }
+
+	       	if(check==1){
+	       		return;
+	       	}
+
+	        $el = $("#send");
+		    $el.find("i").addClass("icon-spin");
+		    $el.removeClass("btn-primary");
+		    $el.addClass("btn-warning");
+		    $el.prop('disabled', true);
+            $.post("routes.php", {
+                loan : o
+                }, function (result) {
+                $el.find("i").removeClass("icon-spin");
+				$.gritter.add({
+					title: 'Бүртгэл амжилттай',
+					text: 	result,
+					image: 	null,
+					sticky: true,
+					time: 	3000
+				});
+				
+				$("#cancel").html("Шинэ зээл нэмэх");
+				$("#grafik").show();
+            });
+        }
+	</script>
+	<!-- Bootbox -->
+	<script src="js/plugins/form/jquery.form.min.js"></script>
+	<!-- Custom file upload -->
+	<script src="js/plugins/fileupload/bootstrap-fileupload.min.js"></script>
+	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
+	<!-- Validation -->
+	<script src="js/plugins/validation/jquery.validate.min.js"></script>
+	<script src="js/plugins/validation/additional-methods.min.js"></script>
+	<script src="js/plugins/datepicker/bootstrap-datepicker.js"></script>
+	<!-- Form -->
+	<script src="js/plugins/form/jquery.form.min.js"></script>
+	<!-- Wizard -->
+	<script src="js/plugins/wizard/jquery.form.wizard.min.js"></script>
+	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
+	<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- Bootbox -->
+	<script src="js/plugins/bootbox/jquery.bootbox.js"></script>
+	<!-- Notify -->
+	<script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+	<!-- Parse -->
+	<script src="js/parse-1.5.0.min.js"></script>
+	<!-- Moment-->
+	<script src="js/moment.min.js"></script>
+{% endblock %}
