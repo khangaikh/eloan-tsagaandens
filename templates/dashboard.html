@@ -47,13 +47,15 @@
 										{{ loop.index }}
 									</td>
 									<td class='hidden-350'>
-										{% if loan.type =="Яаралтай" %}
+										{% if loan.type == 1 %}
 											<span class="label label-red">Яаралтай</span>
+										{% elseif loan.type == 2 %}
+											<span class="label label-satgreen">Энгийн</span>
 										{% else %}
-											<span class="label label-satgreen">{{loan.type}}</span>
+											<span class="label label-satgreen">Disabled</span>	
 										{% endif %}
 									</td>
-									<td class='hidden-1024'><a href="#" onclick="loan({{loan.objectId}});">{{loan.objectId}}</a> </td>
+									<td class='hidden-1024'><a href="index.php?cid={{loan.objectId}}">{{loan.objectId}}</a> </td>
 									<td>{{loan.start}}</td>
 									<td class='hidden-350'>{{loan.createdAt|date('Y-m-d')}}</td>
 									<td class='hidden-1024'>{{loan.duration}}</td>
@@ -79,5 +81,6 @@
 		</div>
 	</div>
 {% endblock %}
+
 
 

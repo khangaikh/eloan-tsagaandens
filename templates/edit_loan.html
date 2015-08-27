@@ -4,12 +4,12 @@
 		<div class="span12">
 			<div class="box box-bordered box-color">
 				<div class="box-title">
-					<h3><i class="icon-reorder"></i> Зээлийн мэдээлэл оруулах</h3>
+					<h3><i class="icon-reorder"></i> Зээлийн мэдээлэл засварлах</h3>
 				</div>
 				<div class="box-content nopadding">
 					<div class="tabs-container">
 						<ul class="tabs tabs-inline tabs-left">
-							<li class='active'>
+							<li >
 								<a href="#first" data-toggle='tab'><i class="icon-check"></i> Ерөнхий </a>
 							</li>
 							<li >
@@ -24,56 +24,58 @@
 							<li>
 								<a href="#fifth" data-toggle='tab'><i class="icon-edit"></i> Бусад</a>
 							</li>
-							<li>
+							<li class='active'>
 								<a href="#sixth" data-toggle='tab' onclick="summary();"><i class="icon-ok"></i> Нэгтгэл</a>
 							</li>
 						</ul>
 					</div>
 					<form id="new_loan" class='form-validate'  enctype='multipart/form-data'>
 						<div class="tab-content padding tab-content-inline">
-							<div class="tab-pane active" id="first">
+							<div class="tab-pane" id="first">
 								<div class="row-fluid">
 									<div class="span12">
 										<div class='form-horizontal form-validate form-column form-bordered ' >
 											<div class="span6">
 												<div class="control-group">
+													<input type="hidden" id="loan_id" name="loan_id" value="{{loan.objectId}}">
 													<label for="textfield" class="control-label">Зээлийн төрөл</label>
 													<div class="controls ">
 														<select name="loan_type" id="loan_type" class='input-large' data-rule-required="true">
-															{% for type in loan_types%}
-																<option value="{{type.value}}">{{type.name}}</option>
-															{% endfor%}
-															
+															<option value="Яаралтай" {% if loan.type==1 %} selected {% endif %}>Яаралтай</option>
+															<option value="Энгийн" {% if loan.type==2 %} selected {% endif %}>Энгийн</option>
+															<option value="Бусад" {% if loan.type==3%} selected {% endif %}>Бусад</option>
 														</select>
 													</div>
 
 												</div>
 												<div class="control-group">
 													<label for="password" class="control-label">Сарын хүү</label>
+													<input type="hidden" id="old_rate" name="old_rate" value="{{loan.rate}}">
 													<div class="controls">
-														<select name="rate" id="rate" class='input-large' data-rule-required="true" >
-															<option value="3">3%</option>
-															<option value="3.5">3.5%</option>
-															<option value="4">4%</option>
-															<option value="4.5">4.5%</option>
-															<option value="5">5%</option>
-															<option value="5.5">5.5%</option>
-															<option value="6">6%</option>
-															<option value="6.5">6.5%</option>
+														<select name="rate" id="rate" class='input-large' data-rule-required="true" {%  if loan.paid_amount!=null%}  disabled {% endif %} >
+															<option value="3" {% if loan.rate==3 %} selected {% endif %}>3%</option>
+															<option value="3.5" {% if loan.rate==3.5 %} selected {% endif %}>3.5%</option>
+															<option value="4" {% if loan.rate==4 %} selected {% endif %}>4%</option>
+															<option value="4.5"{% if loan.rate==4.5 %} selected {% endif %}>4.5%</option>
+															<option value="5"{% if loan.rate==5 %} selected {% endif %}>5%</option>
+															<option value="5.5" {% if loan.rate==5.5 %} selected {% endif %}>5.5%</option>
+															<option value="6"{% if loan.rate==6 %} selected {% endif %}>6%</option>
+															<option value="6.5"{% if loan.rate==6.5 %} selected {% endif %}>6.5%</option>
 														</select>
+														<a href="#" class="btn" rel="popover" data-trigger="hover" title="Нэмэлт мэдээлэл" data-content="Төлбөр төлөлт эхэлсэн бол Хүү, Зээлийн нийт хэмжээ болон, эхлэх огноог өөрчлөх боломжгүй "> <i class="icon-info-sign"></i></a>
 													</div>
 												</div>
 												<div class="control-group">
 													<label class="control-label">Хугацаа</label>
 													<div class="controls">
-														<label class='radio'>
-															<input type="radio" name="duration" value="6" checked> 6 сар
+														<label class='radio' >
+															<input type="radio" name="duration" value="6" {% if loan.duration==6 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 6 сар
 														</label>
-														<label class='radio'>
-															<input type="radio" name="duration" value="12"> 12 сар
+														<label class='radio' >
+															<input type="radio" name="duration" value="12" {% if loan.duration==12 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 12 сар
 														</label>
-														<label class='radio'>
-															<input type="radio" name="duration" value="18"> 18 сар
+														<label class='radio' {%  if loan.paid_amount!=null%}  disabled{% endif %}>
+															<input type="radio" name="duration" value="18" {% if loan.duration==18 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 18 сар
 														</label>
 													</div>
 												</div>
@@ -81,7 +83,7 @@
 													<label for="textarea" class="control-label">Зээлийн хэмжээ</label>
 													<div class="controls">
 														<div class="input-append">
-															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="loan_total" id="loan_total">
+															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="loan_total" id="loan_total" value="{{loan.loan_amount}}" {%  if loan.paid_amount!=null%}  disabled{% endif %}>
 															<span class="add-on">₮</span>
 														</div>
 													</div>
@@ -89,7 +91,7 @@
 												<div class="control-group">
 													<label for="numberfield" class="control-label">Эхлэх огноо</label>
 													<div class="controls">
-														<input type="text" name="start" id="start" class="input-medium datepick"  data-rule-required="true" data-rule-dateISO="true">
+														<input type="text" name="start" id="start" class="input-medium datepick"  data-rule-required="true" data-rule-dateISO="true" value="{{loan.start}}" {%  if loan.paid_amount!=null%}  disabled{% endif %}>
 													</div>
 												</div>
 												<div class="control-group">
@@ -111,36 +113,37 @@
 										<div class='form-horizontal form-column form-bordered'>
 											<div class="span6">
 												<div class="control-group">
+													<input type="hidden" id="customer_id" name="customer_id" value="{{customer.objectId}}">
 													<label for="textfield" class="control-label">Нэр</label>
 													<div class="controls">
-														<input type="text" name="name" id="name" class="input-xlarge" data-rule-required="true">
+														<input type="text" name="name" id="name" class="input-xlarge" data-rule-required="true" value="{{customer.name}}">
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textfield" class="control-label">Овог</label>
 													<div class="controls">
-														<input type="text" name="surname" id="surname" class="input-xlarge" data-rule-required="true">
+														<input type="text" name="surname" id="surname" class="input-xlarge" data-rule-required="true" value="{{customer.surname}}">
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textfield" class="control-label">Ургын овог</label>
 													<div class="controls">
-														<input type="text" name="family_name" id="family_name" class="input-xlarge">
+														<input type="text" name="family_name" id="family_name" class="input-xlarge" value="{{customer.family_name}}">
 													</div>
 												</div>
 												<div class="control-group">
 													<label class="control-label">Хүйс</label>
 													<div class="controls">
 														<select name="gender" id="gender" class='input-large' data-rule-required="true">
-															<option value="male">Эр</option>
-															<option value="female">Эм</option>
+															<option value="female" {% if customer.gender==male %} selected {% endif %}>Эр</option>
+															<option value="male" {% if customer.gender==female %} selected {% endif %}>Эм</option>
 														</select>
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textarea" class="control-label">Хаяг</label>
 													<div class="controls">
-														<textarea name="address" id="address" rows="5" class="input-block-level" data-rule-required="true">.. </textarea>
+														<textarea name="address" id="address" rows="5" class="input-block-level" data-rule-required="true">{{customer.address}} </textarea>
 													</div>
 												</div>
 												
@@ -149,19 +152,19 @@
 												<div class="control-group">
 													<label for="textfield" class="control-label">РД</label>
 													<div class="controls">
-														<input type="text" name="register_number" id="register_number" class="input-xlarge" data-rule-required="true">
+														<input type="text" name="register_number" id="register_number" class="input-xlarge" data-rule-required="true" value="{{customer.register_no}}">
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textfield" class="control-label">Гар утас</label>
 													<div class="controls">
-														<input type="text" name="mobile" id="mobile" class="input-xlarge" data-rule-required="true" data-rule-digits="true">
+														<input type="text" name="mobile" id="mobile" class="input-xlarge" data-rule-required="true" data-rule-digits="true" value="{{customer.mobile_number}}">
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textfield" class="control-label">Цахим шуудан</label>
 													<div class="controls">
-														<input type="text" name="email" id="email" class="input-xlarge" data-rule-email="true">
+														<input type="text" name="email" id="email" class="input-xlarge" data-rule-email="true" value="{{customer.email}}">
 													</div>
 												</div>
 												<div class="control-group">
@@ -177,7 +180,7 @@
 												<div class="control-group">
 													<label for="textarea" class="control-label">Бусад мэдээлэл</label>
 													<div class="controls">
-														<textarea name="more_info" id="more)info" rows="5" class="input-block-level">.. </textarea>
+														<textarea name="more_info" id="more_info" rows="5" class="input-block-level">{{customer.more_info}} </textarea>
 													</div>
 												</div>
 											</div>
@@ -194,10 +197,10 @@
 													<label for="textfield" class="control-label">Барьцааны төрөл</label>
 													<div class="controls">
 														<select name="mortage_type" id="mortage_type" class='input-large' data-rule-required="true">
-															<option value="Авто машин">Авто машин</option>
-															<option value="Хашаа байшин<">Хашаа байшин</option>
-															<option value="Орон сууц">Орон сууц</option>
-															<option value="Үл хөдлөх">Үл хөдлөх</option>
+															<option value="Авто машин" {% if loan.mortage_type=='Авто машин' %} selected {% endif %}>Авто машин</option>
+															<option value="Хашаа байшин" {% if loan.mortage_type=='Хашаа байшин' %} selected {% endif %}>Хашаа байшин</option>
+															<option value="Орон сууц" {% if loan.mortage_type=='Орон сууц' %} selected {% endif %}>Орон сууц</option>
+															<option value="Үл хөдлөх" {% if loan.mortage_type=='Үл хөдлөх' %} selected {% endif %}>Үл хөдлөх</option>
 														</select>
 													</div>
 
@@ -206,7 +209,7 @@
 													<div class="control-group">
 														<label for="textfield" class="control-label">Хөрөнгийн нэр</label>
 														<div class="controls">
-															<input type="text" name="mortage_name" id="textfield" class="input-xlarge" data-rule-required="true">
+															<input type="text" name="mortage_name" id="textfield" class="input-xlarge" data-rule-required="true" value="{{loan.mortage_name}}">
 														</div>
 													</div>
 												</div>
@@ -214,7 +217,7 @@
 													<div class="control-group">
 														<label for="textfield" class="control-label">Хэний өмч болох</label>
 														<div class="controls">
-															<input type="text" name="mortage_owner" id="mortage_owner" class="input-xlarge" data-rule-required="true">
+															<input type="text" name="mortage_owner" id="mortage_owner" class="input-xlarge" data-rule-required="true" value="{{loan.mortage_owner}}">
 														</div>
 													</div>
 												</div>
@@ -222,14 +225,14 @@
 													<div class="control-group">
 														<label for="textfield" class="control-label">Гэрчилгээний дугаар</label>
 														<div class="controls">
-															<input type="text" name="mortage_no" id="mortage_no" class="input-xlarge" data-rule-required="true">
+															<input type="text" name="mortage_no" id="mortage_no" class="input-xlarge" data-rule-required="true" value="{{loan.mortage_number}}">
 														</div>
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textarea" class="control-label">Бусад мэдээлэл</label>
 													<div class="controls">
-														<textarea name="mortage_more" id="mortage_more" rows="5" class="input-block-level">.. </textarea>
+														<textarea name="mortage_more" id="mortage_more" rows="5" class="input-block-level" value="{{loan.mortage_more}}">.. </textarea>
 													</div>
 												</div>
 											</div>
@@ -292,20 +295,20 @@
 												<div class="control-group">
 													<label for="textarea" class="control-label">Нэмэлт тэмдэглэлгээ</label>
 													<div class="controls">
-														<textarea name="extra" id="more_info" rows="5" class="input-block-level">.. </textarea>
+														<textarea name="extra" id="extra" rows="5" class="input-block-level" value="{{more_info}}" >.. </textarea>
 													</div>
 												</div>
 												<div class="control-group">
 													<label for="textarea" class="control-label">Барьцаа хөрөнгийн үнэлгээ</label>
 													<div class="controls">
-														<textarea name="mortage_extra" id="mortage_extra" rows="5" class="input-block-level">.. </textarea>
+														<textarea name="mortage_extra" id="mortage_extra" rows="5" class="input-block-level" value="{{mortage_extra}}">.. </textarea>
 													</div>
 												</div>
 											</div>
 										</div>									
 									</div>
 							</div>
-							<div class="tab-pane" id="sixth">
+							<div class="tab-pane active" id="sixth">
 								<div class="span12">
 									<div class='form-horizontal form-column form-bordered'>
 										<div class="row-fluid">
@@ -315,31 +318,31 @@
 														<div class="control-group">
 															<label for="textfield" class="control-label">Нэр</label>
 															<div class="controls">
-																<input type="text" name="name_a" id="name_a" class="input-xlarge">
+																<input type="text" name="name_a" id="name_a" class="input-xlarge" value="{{loan.name}}" disabled>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Утас</label>
 															<div class="controls">
-																<input type="text" name="mobile_a" id="mobile_a" class="input-xlarge" disabled>
+																<input type="text" name="mobile_a" id="mobile_a" class="input-xlarge" value="{{loan.phone_number}}" disabled>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Барьцаа</label>
 															<div class="controls">
-																<input type="text" name="mortage_a" id="mortage_a" class="input-xlarge" disabled>
+																<input type="text" name="mortage_a" id="mortage_a" class="input-xlarge" value="{{loan.mortage_type}}" disabled>
 															</div>
 														</div>
 														<div class="control-group">
 															<label class="control-label">Зээл</label>
 															<div class="controls">
-																<input type="text" name="loan_total_a" id="loan_total_a" class="input-xlarge" disabled data-rule-required="true"> 
+																<input type="text" name="loan_total_a" id="loan_total_a" class="input-xlarge"  value="{{loan.loan_amount}}" disabled data-rule-required="true"> 
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textarea" class="control-label">Хүү</label>
 															<div class="controls">
-																<input type="text" name="rate_a" id="rate_a" class="input-xlarge" disabled >
+																<input type="text" name="rate_a" id="rate_a" class="input-xlarge" value="{{loan.rate}}" disabled >
 															</div>
 														</div>
 														
@@ -366,13 +369,13 @@
 														<div class="control-group">
 															<label for="textfield" class="control-label">Эхлэх огноо</label>
 															<div class="controls">
-																<input type="text" name="start_a" id="start_a" class="input-xlarge" disabled>
+																<input type="text" name="start_a" id="start_a" class="input-xlarge" value="{{loan.start}}" disabled>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Хугацаа</label>
 															<div class="controls">
-																<input type="text" name="duration_a" id="duration_a" class="input-xlarge"  disabled>
+																<input type="text" name="duration_a" id="duration_a" class="input-xlarge"  value="{{loan.duration}}"disabled>
 															</div>
 														</div>
 														
@@ -380,18 +383,28 @@
 												</div>
 											</div>
 										</div>
-										
-										<div class="form-actions">
-											<button type="button" class="btn btn-primary" onclick="sender();" id ="send" ><i class="icon-refresh"></i> Бүртгэх</button>
-											<button type="button" class="btn" onclick="dashboard();" id="cancel">Цуцлах</button>
+										<div class="control-group">
+											<label for="textfield" class="control-label">Төлөв</label>
+											<div class="controls">
+												<select name="status" id="status" class='input-large' data-rule-required="true">
+													<option value="1" {% if loan.status==1 %} selected {% endif %}>Шинэ</option>
+													<option value="2" {% if loan.status==2 %} selected {% endif %}>Энгийн</option>
+													<option value="3"{% if loan.status==3 %} selected {% endif %}>Алдангитай</option>
+												</select>
+											</div>
 										</div>
+										<div class="form-actions">
+											<button type="button" class="btn btn-primary" onclick="sender();" id ="send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
+											<button type="button" class="btn btn-satgreen" onclick="dashboard();" id="cancel" style="display:none"><i class="icon-ok"></i>Зээлийн листруу буцах </button>
+											<button type="button" class="btn btn-red" onclick="disable();" id="delete"><i class="icon-trash"></i> Идэвхгүй болгох</button>
+
 										</div>
 										<div id="warnings">
 
 										</div>
-										<div id="grafik" style="display:none">
+										<div id="grafik">
 											<div class="row-fluid">
-												<div class="span6">
+												<div class="span12">
 													<div class="box">
 														<div class="box-title">
 															<h3>
@@ -409,10 +422,39 @@
 																		<th class='hidden-1024'>Хүү</th>
 																		<th class='hidden-480'>Үндсэн өр</th>
 																		<th class='hidden-480'>Эцсийн vлдэгдэл</th>
+																		<th class='hidden-480'>Алданги хоног</th>
+																		<th class='hidden-480'>Алданги</th>
+																		<th class='hidden-480'>Төлбөл зохих</th>
+																		<th class='hidden-480'>Төлөв</th>
+																		<th class='hidden-480'></th>
+																		<th class='hidden-480'></th>
 																	</tr>
 																</thead>
 																<tbody id="grafik-unit">
-																	
+																	{% for graphic in graphics %}
+																		<tr>
+																			<td>{{loop.index}}</td>
+																			<td>{{graphic.date}}</td>
+																			<td>{{graphic.pay_amount}}</td>
+																			<td>{{graphic.rate_amount}}</td>
+																			<td>{{graphic.normal_amount}}</td>
+																			<td>{{graphic.left_amount}}</td>
+																			<td>{{graphic.loss_day}}</td>
+																			<td>{{graphic.loss_amount}}</td>
+																			<td>{{graphic.due_pay}}</td>
+																			<td>
+																				{% if graphic.status == 2 %}
+																					<span class="label label-satgreen">Хийгдсэн</span>
+																				{% elseif graphic.status == 3 %}
+																					<span class="label label-satgreen">Хоцролтой</span>
+																				{% else %}
+																					<span class="label">Хийгдээгүй</span>
+																				{% endif %}
+																			</td>
+																			<td><button type="button" class="btn btn-primary btn-orange" onclick="pay({{graphis.objectId}});" id ="send" ><i class="icon-edit"></i> </button></td>
+																			<td><button type="button" class="btn btn-primary btn-green" onclick="paid({{graphis.objectId}});" id ="send" ><i class="icon-ok"></i> </button></td>
+																		</tr>
+																	{% endfor %}
 																</tbody>
 															</table>
 														</div>
@@ -470,8 +512,27 @@
             $("#daily_rate").val(monthly);
 
         }
-        function dashboard(){
-        	location.reload();
+        function disable(){
+        	var id = $("#loan_id").val();
+        	$("#delete").find("i").addClass("icon-spin");
+        	$.post("delete.php", {
+                loan : id
+                }, function (result) {
+                $("#delete").find("i").removeClass("icon-spin");
+				$.gritter.add({
+					title: 'Идэвхгүй болголоо',
+					text: 	result,
+					image: 	null,
+					sticky: true,
+					time: 	3000
+				});
+				$("#delete").hide();
+				setTimeout(
+				  function() 
+				  {
+				    window.location.replace("index.php");
+				  }, 3000);
+            });
         }
 
         function sender() {
@@ -487,25 +548,29 @@
 	                o[this.name] = this.value || '';
 	            }
 	        });
-
+	        
 	        var duration = o['duration'];
 	        var rate = o['rate'];
+	        var old_rate = o['old_rate'];
 	        var amount = o['loan_total']; 
 	        var monthly = pmt(amount,rate,duration).toFixed(2);
-	        var start = o['start']; 
-	        //return;
-	        for (var i=0; i < duration; i++){
-	        	var d = new Date(start);
-                var m = moment(d);
-                var j = i+1;
-                m.add(j, 'months'); 
-                var month_rate = (amount * (rate / 100)).toFixed(2);
-                var normal_debt = (monthly - month_rate).toFixed(2);
-                var left_debt = (amount - normal_debt).toFixed(2);
-	        	$("#grafik-unit").append("<tr><td>"+j+"</td><td>"+m.format("YYYY-MM-DD")+"</td><td>"+monthly+"</td><td>"+month_rate+"</td><td>"+normal_debt+"</td><td>"+left_debt+"</td></tr>");	
-	        	amount = left_debt;
-	        }
-	        
+	        var start = o['start'];
+	        var plotter =0;
+	        if(rate!=old_rate){
+	        	$("#grafik-unit").empty();
+		        for (var i=0; i < duration; i++){
+		        	var d = new Date(start);
+	                var m = moment(d);
+	                var j = i+1;
+	                m.add(j, 'months'); 
+	                var month_rate = (amount * (rate / 100)).toFixed(2);
+	                var normal_debt = (monthly - month_rate).toFixed(2);
+	                var left_debt = (amount - normal_debt).toFixed(2);
+		        	$("#grafik-unit").append("<tr><td>"+j+"</td><td>"+m.format("YYYY-MM-DD")+"</td><td>"+monthly+"</td><td>"+month_rate+"</td><td>"+normal_debt+"</td><td>"+left_debt+"</td></tr>");	
+		        	amount = left_debt;
+		        }
+		        plotter=1;
+	        } 
 	        /*
 	        Parse.initialize("GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr", "0WKtvJn4QC4xm7RbCLcO5PDwwatySgvXCDzJrvlx");
 	        var fileUploadControl = $("#pass")[0];
@@ -519,14 +584,13 @@
 			  parseFile.save();
 			  //alert(file);
 			}*/
-			
 	        var check = 0;
 	        if(o['name']=="" || o['surname']=="" ){
 	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх!</strong> Үйлчлүүлэгчийн овог нэр.</div>");
 	        	 check =1;
 	        }
 	        if(o['mobile']=="" ){
-	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Үйлчлүүлэгчийн утасны дугаар.</div>");
+	        	$("#warnings").append("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Заавал бөглөх! </strong> Үйлчлүүлэгчийн утаны дугаар.</div>");
 	        	 check =1;
 	        }
 	        if(o['loan_total']=="" ){
@@ -563,9 +627,10 @@
 		    $el.removeClass("btn-primary");
 		    $el.addClass("btn-warning");
 		    $el.prop('disabled', true);
-		    $("#warnings").empty();
-            $.post("add.php", {
-                loan : o
+		    $("#delete").prop('disabled', true);
+            $.post("edit.php", {
+                loan : o,
+                plot: plotter
                 }, function (result) {
                 $el.find("i").removeClass("icon-spin");
 				$.gritter.add({
@@ -576,8 +641,9 @@
 					time: 	3000
 				});
 				
-				$("#cancel").html("Шинэ зээл нэмэх");
-				$("#grafik").show();
+				$("#cancel").show();
+				$("#delete").hide();
+				
             });
         }
 	</script>

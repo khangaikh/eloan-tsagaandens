@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box box-bordered box-color">
+				<div class="box-title">
+					<h3><i class="icon-reorder"></i> Тохиргоо</h3>
+				</div>
+				<div class="box-content nopadding">
+					<div class="tabs-container">
+						<ul class="tabs tabs-inline tabs-left">
+							<li class='active'>
+								<a href="#first" data-toggle='tab'><i class="icon-check"></i> Алданги </a>
+							</li>
+							<li >
+								<a href="#second" data-toggle='tab'><i class="icon-user"></i> Зээл</a>
+							</li>
+							<li>
+								<a href="#third" data-toggle='tab'><i class="icon-book"></i> Хэрэглэгч </a>
+							</li>
+						</ul>
+					</div>
+						<div class="tab-content padding tab-content-inline">
+							<div class="tab-pane active" id="first">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class='form-horizontal form-validate form-column form-bordered ' >
+											<div class="span6">
+												<div class="control-group">
+													<label for="textfield" class="control-label">Өдрийн алданги</label>
+													<div class="controls">
+														<select name="daily_rate" id="daily_rate" class='input-large' data-rule-required="true" >
+															<option value="3" {% if loss.daily_loss==3 %} selected {% endif %}>3%</option>
+															<option value="3.5"{% if loss.daily_loss==3.5 %} selected {% endif %}>3.5%</option>
+															<option value="4"{% if loss.daily_loss==4 %} selected {% endif %}>4%</option>
+															<option value="4.5"{% if loss.daily_loss==4.5 %} selected {% endif %}>4.5%</option>
+															<option value="5" {% if loss.daily_loss==5 %} selected {% endif %}>5%</option>
+															<option value="5.5" {% if loss.daily_loss==5.5 %} selected {% endif %}>5.5%</option>
+															<option value="6"{% if loss.daily_loss==6 %} selected {% endif %}>6%</option>
+															<option value="6.5"{% if loss.daily_loss==6.5 %} selected {% endif %}>6.5%</option>
+														</select>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="password" class="control-label">Сарын алданги</label>
+													<div class="controls">
+														<select name="monthly_rate" id="monthly_rate" class='input-large' data-rule-required="true" >
+															<option value="3" {% if loss.monthly_loss==3 %} selected {% endif %}>3%</option>
+															<option value="3.5" {% if loss.monthly_loss==3.5 %} selected {% endif %}>3.5%</option>
+															<option value="4" {% if loss.monthly_loss==4 %} selected {% endif %}>4%</option>
+															<option value="4.5"{% if loss.monthly_loss==4.5 %} selected {% endif %}>4.5%</option>
+															<option value="5" {% if loss.monthly_loss==5 %} selected {% endif %}>5%</option>
+															<option value="5.5" {% if loss.monthly_loss==5.5 %} selected {% endif %}>5.5%</option>
+															<option value="6" {% if loss.monthly_loss==6 %} selected {% endif %}>6%</option>
+															<option value="6.5" {% if loss.monthly_loss==6.5 %} selected {% endif %}>6.5%</option>
+														</select>
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label">Алдангийн дээд хэмжээ</label>
+													<div class="controls">
+														<label class='radio'>
+															<input type="radio" name="loss_max" value="10" {% if loss.loss_max==10 %} checked {% endif %}> 10%
+														</label>
+														<label class='radio'>
+															<input type="radio" name="loss_max" value="20" {% if loss.loss_max==20 %} checked {% endif %}> 20 %
+														</label>
+														<label class='radio'>
+															<input type="radio" name="loss_max" value="30" {% if loss.loss_max==30 %} checked {% endif %}> 30 %
+														</label>
+														<label class='radio'>
+															<input type="radio" name="loss_max" value="40" {% if loss.loss_max==40 %} checked {% endif %}> 40 %
+														</label>
+													</div>
+												</div>
+												<div class="form-actions">
+													<button type="button" class="btn btn-primary" onclick="loss();" id ="loss_send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
+													<button type="button" class="btn btn-satgreen" onclick="dashboard();" id="cancel"><i class="icon-ok"></i>Зээлийн листруу буцах </button>
+												</div>
+										</div>
+										</div>
+									</div>
+								</div>	
+							</div>
+							<div class="tab-pane" id="second">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class='form-horizontal form-column form-bordered form-validate'  enctype='multipart/form-data'>
+											<div class="control-group">
+												<label for="textfield" class="control-label">Зээлийн төрөл</label>
+												<div class="controls">
+													<div class="span12"><input type="text" name="loan_types" id="loan_types" class="tagsinput" value="
+														{%  for type in types%}
+															{{type.name}},
+														{% endfor %}
+														"></div>
+												</div>
+											</div>
+											<div class="control-group">
+												<label for="textfield" class="control-label">Зээлийн хүү</label>
+													<select name="loan_rates" id="loan_rates" class='select2-me input-block-level' multiple="multiple">
+														{% for rate in rates %}
+															<option value="{{rate.rate}}" selected>{{rate.rate}}% </option>
+														{% endfor %}
+														<option value="3">3% </option>
+														<option value="3.5">3.5%</option>
+														<option value="4">4%</option>
+														<option value="4.5">4.5%</option>
+														<option value="5">5%</option>
+														<option value="5.5">5.5%</option>
+														<option value="6">6%</option>
+														<option value="6.5">6.5%</option>
+														<option value="7">7%</option>
+														<option value="7.5">7.5%</option>
+														<option value="8">8%</option>
+														<option value="8.5">8.5%</option>
+														<option value="9">9%</option>
+														<option value="9.5">9.5%</option>
+														<option value="10">10%</option>
+													</select>
+											</div>
+											<div class="form-actions">
+													<button type="button" class="btn btn-primary" onclick="loan();" id ="loan_send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
+													<button type="button" class="btn btn-satgreen" onclick="dashboard();" id="cancel"><i class="icon-ok"></i>Зээлийн листруу буцах </button>
+												</div>
+									</div>
+								</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="third">
+								<div class="row-fluid">
+									<div class="span12">
+										<p>Энэ модул хаалттай байна. 88021087 лавлана уу!</p>
+										<br>
+										<br>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block footer %}
+	{{parent()}}
+	<script type="text/javascript">
+        function dashboard(){
+        	location.reload();
+        }
+
+        function loss() {
+			var daily = $("#daily_rate").val();
+			var monthly = $("#monthly_rate").val();
+			var loss_max = $('input[name="loss_max"]:checked').val();
+
+	        $el = $("#loss_send");
+		    $el.find("i").addClass("icon-spin");
+		    $el.removeClass("btn-primary");
+		    $el.addClass("btn-warning");
+		    $el.prop('disabled', true);
+            $.post("add_loss.php", {
+                daily : daily,
+                monthly: monthly,
+                loss_max: loss_max
+                }, function (result) {
+                $el.find("i").removeClass("icon-spin");
+				$.gritter.add({
+					title: 'Бүртгэл амжилттай',
+					text: 	result,
+					image: 	null,
+					sticky: true,
+					time: 	3000
+				});
+            });
+        }
+        function loan() {
+			var types = $("#loan_types").val();
+			var typeIs = types.split(",");
+			var foo = []; 
+			$('#loan_rates :selected').each(function(i, selected){ 
+			  foo[i] = $(selected).val(); 
+			});
+	        $el = $("#loan_send");
+		    $el.find("i").addClass("icon-spin");
+		    $el.removeClass("btn-primary");
+		    $el.addClass("btn-warning");
+		    $el.prop('disabled', true);
+            $.post("add_loan.php", {
+                types : typeIs,
+                rates : foo
+                }, function (result) {
+                $el.find("i").removeClass("icon-spin");
+				$.gritter.add({
+					title: 'Бүртгэл амжилттай',
+					text: 	result,
+					image: 	null,
+					sticky: true,
+					time: 	3000
+				});
+            });
+        }
+	</script>
+	<!-- Bootbox -->
+	<script src="js/plugins/form/jquery.form.min.js"></script>
+	<!-- Custom file upload -->
+	<script src="js/plugins/fileupload/bootstrap-fileupload.min.js"></script>
+	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
+	<!-- Validation -->
+	<script src="js/plugins/validation/jquery.validate.min.js"></script>
+	<script src="js/plugins/validation/additional-methods.min.js"></script>
+	<script src="js/plugins/datepicker/bootstrap-datepicker.js"></script>
+	<!-- Form -->
+	<script src="js/plugins/form/jquery.form.min.js"></script>
+	<!-- Wizard -->
+	<script src="js/plugins/wizard/jquery.form.wizard.min.js"></script>
+	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
+	<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- TagsInput -->
+	<script src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+	<!-- Bootbox -->
+	<script src="js/plugins/bootbox/jquery.bootbox.js"></script>
+	<!-- Notify -->
+	<script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+	<!-- Parse -->
+	<script src="js/parse-1.5.0.min.js"></script>
+	<!-- Moment-->
+	<script src="js/moment.min.js"></script>
+	<!-- select2 -->
+	<script src="js/plugins/select2/select2.min.js"></script>
+{% endblock %}
