@@ -413,7 +413,7 @@
 															</h3>
 														</div>
 														<div class="box-content nopadding">
-															<table class="table table-hover table-nomargin table-condensed table-striped ligthgrey">
+															<table class="table table-bordered dataTable dataTable-scroll-x">
 																<thead>
 																	<tr>
 																		<th class='with-checkbox'>#</th>
@@ -425,8 +425,10 @@
 																		<th class='hidden-480'>Алданги хоног</th>
 																		<th class='hidden-480'>Алданги</th>
 																		<th class='hidden-480'>Төлбөл зохих</th>
-																		<th class='hidden-480'>Төлөв</th>
-																		<th class='hidden-480'></th>
+																		<th class='hidden-480'>Эргэн төлөлт #1</th>
+																		<th class='hidden-480'>Эргэн төлөлт #2</th>
+																		<th class='hidden-480'>Эргэн төлөлт #3</th>
+																		<th class='hidden-480'>Үлдэгдэл</th>
 																		<th class='hidden-480'></th>
 																	</tr>
 																</thead>
@@ -442,17 +444,19 @@
 																			<td>{{graphic.loss_day}}</td>
 																			<td>{{graphic.loss_amount}}</td>
 																			<td>{{graphic.due_pay}}</td>
-																			<td>
-																				{% if graphic.status == 2 %}
-																					<span class="label label-satgreen">Хийгдсэн</span>
-																				{% elseif graphic.status == 3 %}
-																					<span class="label label-satgreen">Хоцролтой</span>
-																				{% else %}
-																					<span class="label">Хийгдээгүй</span>
-																				{% endif %}
-																			</td>
-																			<td><button type="button" class="btn btn-primary btn-orange" onclick="pay({{graphis.objectId}});" id ="send" ><i class="icon-edit"></i> </button></td>
-																			<td><button type="button" class="btn btn-primary btn-green" onclick="paid({{graphis.objectId}});" id ="send" ><i class="icon-ok"></i> </button></td>
+																			{% if graphic.status == 1 %}
+																				<td id="pay1"><strong>{{graphic.paid_amount1}}</strong> <br> {{graphic.pay_date1}}</td>
+																				<td id="pay2"><strong>{{graphic.paid_amount2}}</strong> <br> {{graphic.pay_date2}}</td>
+																				<td id="pay3"><strong>{{graphic.paid_amount3}}</strong> <br> {{graphic.pay_date3}}</td>
+																				<td>{{graphic.not_paid}}</td>
+																				<td><button id="approve" type="button" class="btn btn-satgreen" name="{{graphic.objectId}}" disabled><i class="icon-ok"></i></button> </td>
+																			{% else %}
+																				<td id="pay1"><a id="pay_a" href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #1">{{graphic.paid_amount1}} </a> <br> {{graphic.pay_date1}}</td>
+																				<td id="pay2"><a id="pay_b" href="#" name="b_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #2">{{graphic.paid_amount2}}</a> <br> {{graphic.pay_date2}}</td>
+																				<td id="pay3"><a id="pay_c" href="#" name="c_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="top" data-original-title="Эргэн төлөлт #3">{{graphic.paid_amount3}}</a> <br> {{graphic.pay_date3}}</td>
+																				<td>{{graphic.not_paid}}</td>
+																				<td><button id="approve" type="button" class="btn next" name="{{graphic.objectId}}" ><i class="icon-refresh"></i></button> </td>
+																			{% endif %}
 																		</tr>
 																	{% endfor %}
 																</tbody>
@@ -477,6 +481,7 @@
 {% block footer %}
 	{{parent()}}
 	<script type="text/javascript">
+		
 		function pmt(amount, interest, term) {
 		    var princ = amount;
 			var term  = term
@@ -484,6 +489,51 @@
 	      	var pmt = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
 	      	return pmt;
 		 }
+		 
+		 $('.next').click(function(){
+		 	
+		 	if (confirm('Та энэ төлбөрийг баталгаажуулах гэж байна. Энэхүү үйлдэлийг буцааж болохгүйг анхаарна уу!')) {
+				var graphId = $(this).attr("name");
+				$el = $(this);
+				$(this).prop("disabled",true);
+				$(this).find("i").addClass("icon-spin");
+				$.post("edit_graphic.php", {
+                name : 4,
+                value : graphId,
+                pk: graphId
+                }, function (result) {
+                	if(result == 1){
+                		$el.addClass("btn-satgreen");
+                		$el.find("i").removeClass("icon-spin");
+	                	$el.find("i").removeClass("icon-refresh");
+	                	$el.find("i").addClass("icon-ok");
+						$.gritter.add({
+							title: 'Системийн мэдээлэл',
+							text: 	'Амжилттай',
+							image: 	null,
+							sticky: false,
+							time: 	3000
+						});
+                	}else{
+                		$.gritter.add({
+							title: 'Системийн мэдээлэл',
+							text: 	'Системийн алдаа та дахин оролдоно уу. Ctrl+F5',
+							image: 	null,
+							sticky: true,
+							time: 	3000
+						});
+                	}	
+            });
+				 
+
+			} else {
+				
+			}
+			
+		});
+
+	
+
 		 function summary() {
             var name = $("#name").val();
             var surname = $("#surname").val();
@@ -651,7 +701,7 @@
 	<script src="js/plugins/form/jquery.form.min.js"></script>
 	<!-- Custom file upload -->
 	<script src="js/plugins/fileupload/bootstrap-fileupload.min.js"></script>
-	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
+
 	<!-- Validation -->
 	<script src="js/plugins/validation/jquery.validate.min.js"></script>
 	<script src="js/plugins/validation/additional-methods.min.js"></script>
@@ -660,7 +710,6 @@
 	<script src="js/plugins/form/jquery.form.min.js"></script>
 	<!-- Wizard -->
 	<script src="js/plugins/wizard/jquery.form.wizard.min.js"></script>
-	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
 	<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<!-- Bootbox -->
 	<script src="js/plugins/bootbox/jquery.bootbox.js"></script>
@@ -670,4 +719,9 @@
 	<script src="js/parse-1.5.0.min.js"></script>
 	<!-- Moment-->
 	<script src="js/moment.min.js"></script>
+	<!-- XEditable -->
+	<script src="js/plugins/momentjs/jquery.moment.js"></script>
+	<script src="js/plugins/xeditable/bootstrap-editable.min.js"></script>
+	<script src="js/plugins/xeditable/demo.js"></script>
+	
 {% endblock %}

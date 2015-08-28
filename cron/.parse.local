@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "eLoan-tsagaandens"
+    },
+    "eLoan-tsagaandens": {
+      "applicationId": "GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr"
+    }
+  }
+}

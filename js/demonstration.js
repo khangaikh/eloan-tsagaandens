@@ -142,7 +142,13 @@ $(document).ready(function() {
 		};
 
 		opt.sScrollX = "100%";
-		//opt.bScrollCollapse = true;
+		opt.bScrollCollapse = true;
+		$(window).resize(function(){
+			oTable.fnAdjustColumnSizing();
+		});
+		$(window).load(function(){
+			oTable.fnAdjustColumnSizing();
+		});
 			
 		var oTable = $('.usertable').dataTable(opt);
 		$('.dataTables_filter input').attr("placeholder", "...");

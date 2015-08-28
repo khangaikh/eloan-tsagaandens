@@ -1,6 +1,6 @@
 <?php
 
-	require 'includes/parse/autoload.php';
+	require_once 'includes/parse/autoload.php';
 	use Parse\ParseClient;
     
     $app_id = 'GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr';

@@ -656,6 +656,10 @@ if($(".scrollable").length > 0){
         $el.slimScroll(opt);
     });
 }
+$("form").submit(function(e){
+e.preventDefault();
+
+});
 
 $(".new-task-form").submit(function(e){
     e.preventDefault();

@@ -100,6 +100,7 @@
         $grafik -> set("left_amount",$left_amount);
         $grafik -> set("loss_day",0);
         $grafik -> set("loss_amount",0);
+        $grafik -> set("status",0);
         $grafik -> set("loan",$loan);
         $princ = $left_amount;
         try {
