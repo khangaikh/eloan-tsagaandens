@@ -212,7 +212,7 @@ $(document).ready(function() {
 	}
 
 	if($(".customertable").length > 0){
-		var opt = {
+		var opt1 = {
 			"sPaginationType": "full_numbers",
 			"iDisplayLength" : 50,
 			"oLanguage":{
@@ -232,8 +232,8 @@ $(document).ready(function() {
 			}
 		};
 
-		opt.sScrollX = "100%";
-		opt.bScrollCollapse = true;
+		opt1.sScrollX = "100%";
+		opt1.bScrollCollapse = true;
 		$(window).resize(function(){
 			oTable.fnAdjustColumnSizing();
 		});
@@ -241,7 +241,7 @@ $(document).ready(function() {
 			oTable.fnAdjustColumnSizing();
 		});
 			
-		var oTable = $('.customertable').dataTable(opt);
+		var oTable = $('.customertable').dataTable(opt1);
 		$('.dataTables_filter input').attr("placeholder", "...");
 		$(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
 			disable_search_threshold: 9999999
@@ -280,12 +280,12 @@ $(document).ready(function() {
 				type: "text",
 			},
 			{
-				type: "text",
-			},
-			{
 				type: "select",
 				bCaseSensitive:true,
 				values: ['Эр', 'Эм']
+			},
+			{
+				type: "text",
 			},
 			{
 				type: "text",

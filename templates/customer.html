@@ -19,8 +19,8 @@
 								<th class='hidden-350'>Бүртгэлийн огноо</th>
 								<th class='hidden-1024'>Регистер</th>
 								<th>Утас</th>
-								<th>Цахим шуудан</th>
 								<th>Хүйс</th>
+								<th>Цахим шуудан</th>
 								<th>Хаяг</th>
 								<th>Бусад</th>
 								<th>Хот</th>	
@@ -33,8 +33,8 @@
 								<th class='hidden-350'>Бүртгэлийн огноо</th>
 								<th class='hidden-1024'>Регистер</th>
 								<th>Утас</th>
-								<th>Цахим шуудан</th>
 								<th>Хүйс</th>
+								<th>Цахим шуудан</th>
 								<th>Хаяг</th>
 								<th>Бусад</th>
 								<th>Хот</th>
@@ -60,7 +60,7 @@
 									<td class='hidden-350'>{{cus.createdAt|date('Y-m-d')}}</td>
 									<td class='hidden-1024'><a href="#" onclick="loans({{cus.objectId}});">{{cus.register_no}}</a></td>
 									<td class='hidden-1024'>{{cus.mobile_number}}</td>
-									<td class='hidden-1024'>{% if cus.gender == male %} Эр {% else %} Эм {% endif %}</td>
+									<td class='hidden-1024'>{% if cus.gender == 'male' %} Эр {% else %} Эм {% endif %}</td>
 									<td class='hidden-1024'>{{cus.email}}</td>
 									<td class='hidden-1024'>{{cus.address}}</td>
 									<td class='hidden-350'>{{cus.more_info}}</td>

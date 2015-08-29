@@ -6596,6 +6596,23 @@ label, input, button, select, textarea {
   width: 100%;
   background: #fff;
 }
+.dataTable-columnfilter .thefilter th, .customertable .thefilter th {
+  background-color: #eee;
+  vertical-align: middle;
+  color: #777;
+}
+.dataTable-columnfilter .thefilter .filter_column input, .customertable .thefilter .filter_column input {
+  margin-bottom: 0;
+  width: 100%;
+  padding: 4px 0;
+  text-indent: 8px;
+  background: #fff;
+}
+.dataTable-columnfilter .thefilter .filter_column select, .customertable .thefilter .filter_column select {
+  margin-bottom: 0;
+  width: 100%;
+  background: #fff;
+}
 
 .input-mini select {
   width: 60px;
