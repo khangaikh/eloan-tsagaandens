@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box box-color box-bordered">
+				<div class="box-title">
+					<h3>
+						Үйчлүүлэгчийн мэдээлэл
+					</h3>
+				</div>
+				<div class="box-content nopadding">
+					<table class="table table-hover table-nomargin table-bordered customertable">
+						<thead>
+							<tr class='thefilter'>
+								<th class='with-checkbox'></th>
+								<th class='hidden-350'>Төлөв</th>
+								<th>Нэр</th>
+								<th>Овог</th>
+								<th class='hidden-350'>Бүртгэлийн огноо</th>
+								<th class='hidden-1024'>Регистер</th>
+								<th>Утас</th>
+								<th>Цахим шуудан</th>
+								<th>Хүйс</th>
+								<th>Хаяг</th>
+								<th>Бусад</th>
+								<th>Хот</th>	
+							</tr>
+							<tr>
+								<th class='with-checkbox'></th>
+								<th class='hidden-350'>Төлөв</th>
+								<th>Нэр</th>
+								<th>Овог</th>
+								<th class='hidden-350'>Бүртгэлийн огноо</th>
+								<th class='hidden-1024'>Регистер</th>
+								<th>Утас</th>
+								<th>Цахим шуудан</th>
+								<th>Хүйс</th>
+								<th>Хаяг</th>
+								<th>Бусад</th>
+								<th>Хот</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cus in customers %}
+								<tr>
+									<td class="with-checkbox">
+										{{ loop.index }}
+									</td>
+									<td class='hidden-350'>
+										{% if cus.status == 1 %}
+											<span class="label label-orange">Шинэ</span>
+										{% elseif loan.type == 2 %}
+											<span class="label label-satgreen">Сайн</span>
+										{% else %}
+											<span class="label label-grean">Байнгын</span>	
+										{% endif %}
+									</td>
+									<td class='hidden-1024'>{{cus.name}} {{cus.surname}}</td>
+									<td>{{cus.family_name}}</td>
+									<td class='hidden-350'>{{cus.createdAt|date('Y-m-d')}}</td>
+									<td class='hidden-1024'><a href="#" onclick="loans({{cus.objectId}});">{{cus.register_no}}</a></td>
+									<td class='hidden-1024'>{{cus.mobile_number}}</td>
+									<td class='hidden-1024'>{% if cus.gender == male %} Эр {% else %} Эм {% endif %}</td>
+									<td class='hidden-1024'>{{cus.email}}</td>
+									<td class='hidden-1024'>{{cus.address}}</td>
+									<td class='hidden-350'>{{cus.more_info}}</td>
+									<td class='hidden-350'>{{cus.city}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+

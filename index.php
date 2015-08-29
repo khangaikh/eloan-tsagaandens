@@ -60,6 +60,13 @@
             //render a template
             echo $template->render(array('title' => 'Үндсэн тохиргоо','loss' => $loss,"types" => $types, "rates" => $rates));  
         }
+        else if($_GET["cid"]==4){
+           $template = $twig->loadTemplate('customer.html');
+            $query = new ParseQuery("customer");
+            $customers = $query->find();    
+            //render a template
+            echo $template->render(array('title' => 'Үйлчлүүлэгч','customers' => $customers));  
+        }
         else if($_GET["cid"]==5){
             session_destroy();
             session_unset();

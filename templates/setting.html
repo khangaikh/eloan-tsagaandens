@@ -30,6 +30,11 @@
 													<label for="textfield" class="control-label">Өдрийн алданги</label>
 													<div class="controls">
 														<select name="daily_rate" id="daily_rate" class='input-large' data-rule-required="true" >
+															<option value="0.5" {% if loss.daily_loss==3 %} selected {% endif %}>0.5%</option>
+															<option value="1" {% if loss.daily_loss==1 %} selected {% endif %}>1%</option>
+															<option value="1.5" {% if loss.daily_loss==1.5 %} selected {% endif %}>1.5%</option>
+															<option value="2" {% if loss.daily_loss==2 %} selected {% endif %}>2%</option>
+															<option value="2.5" {% if loss.daily_loss==2.5 %} selected {% endif %}>2.5%</option>
 															<option value="3" {% if loss.daily_loss==3 %} selected {% endif %}>3%</option>
 															<option value="3.5"{% if loss.daily_loss==3.5 %} selected {% endif %}>3.5%</option>
 															<option value="4"{% if loss.daily_loss==4 %} selected {% endif %}>4%</option>
@@ -45,6 +50,11 @@
 													<label for="password" class="control-label">Сарын алданги</label>
 													<div class="controls">
 														<select name="monthly_rate" id="monthly_rate" class='input-large' data-rule-required="true" >
+															<option value="0.5" {% if loss.monthly_loss==3 %} selected {% endif %}>0.5%</option>
+															<option value="1" {% if loss.monthly_loss==1 %} selected {% endif %}>1%</option>
+															<option value="1.5" {% if loss.monthly_loss==1.5 %} selected {% endif %}>1.5%</option>
+															<option value="2" {% if loss.monthly_loss==2 %} selected {% endif %}>2%</option>
+															<option value="2.5" {% if loss.monthly_loss==2.5 %} selected {% endif %}>2.5%</option>
 															<option value="3" {% if loss.monthly_loss==3 %} selected {% endif %}>3%</option>
 															<option value="3.5" {% if loss.monthly_loss==3.5 %} selected {% endif %}>3.5%</option>
 															<option value="4" {% if loss.monthly_loss==4 %} selected {% endif %}>4%</option>
