@@ -449,13 +449,13 @@
 																				<td id="pay2"><strong>{{graphic.paid_amount2}}</strong> <br> {{graphic.pay_date2}}</td>
 																				<td id="pay3"><strong>{{graphic.paid_amount3}}</strong> <br> {{graphic.pay_date3}}</td>
 																				<td>{{graphic.not_paid}}</td>
-																				<td><button id="approve" type="button" class="btn btn-satgreen" name="{{graphic.objectId}}" disabled><i class="icon-ok"></i></button> </td>
+																				<td><a id="approve" type="button" disabled class="btn btn-satgreen" name="{{graphic.objectId}}" ><i class="icon-ok"></i></a> </td>
 																			{% else %}
 																				<td id="pay1"><a id="pay_a" href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #1">{{graphic.paid_amount1}} </a> <br> {{graphic.pay_date1}}</td>
 																				<td id="pay2"><a id="pay_b" href="#" name="b_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #2">{{graphic.paid_amount2}}</a> <br> {{graphic.pay_date2}}</td>
 																				<td id="pay3"><a id="pay_c" href="#" name="c_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="top" data-original-title="Эргэн төлөлт #3">{{graphic.paid_amount3}}</a> <br> {{graphic.pay_date3}}</td>
 																				<td>{{graphic.not_paid}}</td>
-																				<td><button id="approve" type="button" class="btn next" name="{{graphic.objectId}}" ><i class="icon-refresh"></i></button> </td>
+																				<td><button id="approve" type="button" class="btn" name="{{graphic.objectId}}" ><i class="icon-refresh"></i></button> </td>
 																			{% endif %}
 																		</tr>
 																	{% endfor %}
@@ -683,6 +683,7 @@
                 plot: plotter
                 }, function (result) {
                 $el.find("i").removeClass("icon-spin");
+                $el.find("i").removeClass("icon-refresh");
 				$.gritter.add({
 					title: 'Бүртгэл амжилттай',
 					text: 	result,

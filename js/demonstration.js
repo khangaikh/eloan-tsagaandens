@@ -303,6 +303,7 @@ $(document).ready(function() {
 		$(".customertable").css("width", '100%');
 		
 	}
+	
 
 	var $left = $("#left");
 
