@@ -52,7 +52,7 @@
 													<label for="password" class="control-label">Сарын хүү</label>
 													<input type="hidden" id="old_rate" name="old_rate" value="{{loan.rate}}">
 													<div class="controls">
-														<select name="rate" id="rate" class='input-large' data-rule-required="true" {%  if loan.paid_amount!=null%}  disabled {% endif %} >
+														<select name="rate" id="rate" class='input-large' data-rule-required="true" {%  if loan.paid_amount1!=null%}  disabled {% endif %} >
 															<option value="3" {% if loan.rate==3 %} selected {% endif %}>3%</option>
 															<option value="3.5" {% if loan.rate==3.5 %} selected {% endif %}>3.5%</option>
 															<option value="4" {% if loan.rate==4 %} selected {% endif %}>4%</option>
@@ -69,13 +69,13 @@
 													<label class="control-label">Хугацаа</label>
 													<div class="controls">
 														<label class='radio' >
-															<input type="radio" name="duration" value="6" {% if loan.duration==6 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 6 сар
+															<input type="radio" name="duration" value="6" {% if loan.duration==6 %} checked {% endif %} {%  if loan.paid_amount1!=null%}  disabled{% endif %}> 6 сар
 														</label>
 														<label class='radio' >
-															<input type="radio" name="duration" value="12" {% if loan.duration==12 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 12 сар
+															<input type="radio" name="duration" value="12" {% if loan.duration==12 %} checked {% endif %} {%  if loan.paid_amount1!=null%}  disabled{% endif %}> 12 сар
 														</label>
-														<label class='radio' {%  if loan.paid_amount!=null%}  disabled{% endif %}>
-															<input type="radio" name="duration" value="18" {% if loan.duration==18 %} checked {% endif %} {%  if loan.paid_amount!=null%}  disabled{% endif %}> 18 сар
+														<label class='radio' {%  if loan.paid_amount1!=null%}  disabled{% endif %}>
+															<input type="radio" name="duration" value="18" {% if loan.duration==18 %} checked {% endif %} {%  if loan.paid_amount1!=null%}  disabled{% endif %}> 18 сар
 														</label>
 													</div>
 												</div>
@@ -83,7 +83,16 @@
 													<label for="textarea" class="control-label">Зээлийн хэмжээ</label>
 													<div class="controls">
 														<div class="input-append">
-															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="loan_total" id="loan_total" value="{{loan.loan_amount}}" {%  if loan.paid_amount!=null%}  disabled{% endif %}>
+															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="loan_total" id="loan_total" value="{{loan.loan_amount}}" {%  if loan.paid_amount1!=null%}  disabled{% endif %}>
+															<span class="add-on">₮</span>
+														</div>
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="textarea" class="control-label">Гэрээний дугаар</label>
+													<div class="controls">
+														<div class="input-append">
+															<input type="text" placeholder="Төгрөг" class='input-large'  data-rule-required="true" data-rule-minlength="2" data-rule-number="true" name="contract_no" id="contract_no" value="{{loan.contract_no}}" {%  if loan.paid_amount1!=null%}  disabled{% endif %}>
 															<span class="add-on">₮</span>
 														</div>
 													</div>
@@ -91,7 +100,7 @@
 												<div class="control-group">
 													<label for="numberfield" class="control-label">Эхлэх огноо</label>
 													<div class="controls">
-														<input type="text" name="start" id="start" class="input-medium datepick"  data-rule-required="true" data-rule-dateISO="true" value="{{loan.start}}" {%  if loan.paid_amount!=null%}  disabled{% endif %}>
+														<input type="text" name="start" id="start" class="input-medium datepick"  data-rule-required="true" data-rule-dateISO="true" value="{{loan.start}}" {%  if loan.paid_amount1!=null%}  disabled{% endif %}>
 													</div>
 												</div>
 												<div class="control-group">

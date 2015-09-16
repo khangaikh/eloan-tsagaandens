@@ -54,6 +54,7 @@
     $loan -> set("start", $new['start']);
     $loan -> set("duration", (int)$new['duration']);
     $loan -> set("loan_amount", (double) $new['loan_total']);
+    $loan -> set("contract_no",  $new['contract_no']);
     $loan -> set("status", 1);
     $loan -> set("customer", $customer);
     $loan -> set("mortage_type", $new['mortage_type']);
