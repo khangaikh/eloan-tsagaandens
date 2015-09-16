@@ -101,7 +101,7 @@
 	    $.post("login.php", {
 	    	user:o
         }, function (result) {
-        	//if(result==0){
+        	if(result!=0){
         		$.gritter.add({
 					title: 'Амжилттай',
 					text: 	':) ',
@@ -109,8 +109,17 @@
 					sticky: true,
 					time: 	3000
 				});
-        	//}
-        	window.location.replace("index.php");
+				window.location.replace("index.php");
+        	}else{
+        		$.gritter.add({
+					title: 'Амжилтгүй',
+					text: 	'Нууц үг эсвэл хэрэглэгч буруу байна ',
+					image: 	null,
+					sticky: false,
+					time: 	3000
+				});
+        	}
+        	
     	});
 	});
 	</script>

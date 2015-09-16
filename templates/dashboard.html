@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class="row-fluid">
+	<div class="row-fluid" style="margin-top:-20px">
 		<div class="span12">
 			<div class="box box-color box-bordered">
 				<div class="box-title">
@@ -15,6 +15,7 @@
 								<th class='with-checkbox'></th>
 								<th class='hidden-350'>Төрөл</th>
 								<th>Код</th>
+								<th>Гэрээ #</th>
 								<th>Эхлэх огноо</th>
 								<th class='hidden-350'>Бүртгэлийн огноо</th>
 								<th class='hidden-1024'>Хугацаа</th>
@@ -29,6 +30,7 @@
 								<th class='with-checkbox'></th>
 								<th class='hidden-350'>Төрөл</th>
 								<th>Код</th>
+								<th>Гэрээ #</th>
 								<th>Эхлэх огноо</th>
 								<th class='hidden-350'>Бүртгэлийн огноо</th>
 								<th class='hidden-1024'>Хугацаа(сар)</th>
@@ -56,6 +58,7 @@
 										{% endif %}
 									</td>
 									<td class='hidden-1024'><a href="index.php?cid={{loan.objectId}}">{{loan.objectId}}</a> </td>
+									<td class='hidden-1024'> </td>
 									<td>{{loan.start}}</td>
 									<td class='hidden-350'>{{loan.createdAt|date('Y-m-d')}}</td>
 									<td class='hidden-1024'>{{loan.duration}}</td>

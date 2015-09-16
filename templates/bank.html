@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box box-color box-bordered">
+				<div class="box-title">
+					<h3>
+						Зээлийн мэдээлэл
+					</h3>
+				</div>
+				<div class="box-content nopadding">
+					<table class="table table-hover table-nomargin table-bordered usertable3">
+						<thead>
+							<tr class='thefilter'>
+								<th class='with-checkbox'></th>
+								<th class='hidden-350'>Төрөл</th>
+								<th>Хэлбэр</th>
+								<th class='hidden-350'>Огноо</th>
+								<th class='hidden-1024'>Эхний үлдэгдэл</th>
+								<th>Зээл</th>
+								<th>Граф төлөлт</th>
+								<th>Тайлбар</th>
+								<th>Эцсийн үлдэгдэл</th>
+								<th>Зээл</th>
+								<th>Төлөв</th>	
+							</tr>
+							<tr>
+								<th class='with-checkbox'></th>
+								<th class='hidden-350'>Банк</th>
+								<th>Данс</th>
+								<th>Бүртгэлийн огноо</th>
+								<th class='hidden-350'>Орлогын огноо</th>
+								<th class='hidden-1024'>Эхний үлдэгдэл</th>
+								<th>Үйлчлүүлэгч</th>
+								<th>Гүйлгээ</th>
+								<th>Тайлбар</th>
+								<th>Эцсийн үлдэгдэл</th>
+								<th>Зээл</th>
+								<th>Төлөв</th>	
+							</tr>
+						</thead>
+						<tbody>
+							{% for loan in loans %}
+								<tr>
+									<td class="with-checkbox">
+										{{ loop.index }}
+									</td>
+									<td class='hidden-350'>
+										{% if loan.type == 1 %}
+											<span class="label label-satgreen">Яаралтай</span>
+										{% elseif loan.type == 2 %}
+											<span class="label label-satgreen">Энгийн</span>
+										{% else %}
+											<span class="label label-satgreen">Disabled</span>	
+										{% endif %}
+									</td>
+									<td class='hidden-1024'><a href="index.php?cid={{loan.objectId}}">{{loan.objectId}}</a> </td>
+									<td>{{loan.start}}</td>
+									<td class='hidden-350'>{{loan.createdAt|date('Y-m-d')}}</td>
+									<td class='hidden-1024'>{{loan.duration}}</td>
+									<td class='hidden-1024'><a href="index.php?cusId={{loan.customer.objectId}}" >{{ loan.name}} {{loan.surname}}</a></td>
+									<td class='hidden-1024'>{{loan.customer_register}}</td>
+									<td class='hidden-1024'>{{loan.phone_number}}</td>
+									<td class='hidden-1024'>{{loan.mortage_type}}</td>
+									<td class='hidden-1024'>{{loan.mortage_number}}</td>
+									<td class='hidden-350'>
+										{% if loan.status == 1 %}
+											<span class="label label-satgreen">Шинэ</span>
+										{% elseif loan.status == 2 %}
+											<span class="label label-satgreen">Энгийн</span>
+										{% else %}
+										<span class="label label-red">Алдангитай</span></td>
+										{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+

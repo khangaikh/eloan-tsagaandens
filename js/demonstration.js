@@ -76,8 +76,8 @@ function moneyRandom(){
 function currentTime(){
 	var $el = $(".stats .icon-calendar").parent(),
 	currentDate = new Date(),
-	monthNames = [ "January", "February", "March", "April", "May", "June",
-	"July", "8-р сарын", "September", "October", "November", "December" ],
+	monthNames = [ "1-р сарын", "2-р сарын", "3-р сарын", "4-р сарын", "5-р сарын", "6-р сарын",
+	"July", "8-р сарын", "9-р сарын", "10-р сарын", "11-р сарын", "12-р сарын" ],
 	dayNames = ["Бүтэнсайн","Даваа","Мягмар","Лхагва","Пүрэв","Баасан","Хагассайн"];
 
 	$el.find(".details .big").html(monthNames[currentDate.getMonth()] + " " + currentDate.getDate() + ", " + currentDate.getFullYear());
@@ -172,6 +172,9 @@ $(document).ready(function() {
 				type: "select",
 				bCaseSensitive:true,
 				values: ['Яаралтай', 'Энгийн', 'Disabled']
+			},
+			{
+				type: "text",
 			},
 			{
 				type: "text",
@@ -304,6 +307,187 @@ $(document).ready(function() {
 		
 	}
 	
+	if($(".usertable3").length > 0){
+		var opt = {
+			"sPaginationType": "full_numbers",
+			"iDisplayLength" : 50,
+			"oLanguage":{
+				"sSearch": "<span>Хайлт:</span> ",
+				"sInfo": " <span>_START_</span> -c <span>_END_</span> нийт <span>_TOTAL_</span> мэдээлэл байна",
+				"sLengthMenu": "_MENU_ <span>хуудасны хэмжээ</span>"
+			},
+			'sDom': "lfrtip",
+			'aoColumnDefs' : [
+			{ 'bSortable': true, 'aTargets': [0,10] }
+			],
+			'oColVis': {
+				"buttonText": "Change columns <i class='icon-angle-down'></i>"
+			},
+			'oTableTools' : {
+				"sSwfPath": "js/plugins/datatable/swf/copy_csv_xls_pdf.swf"
+			}
+		};
+
+		opt.sScrollX = "100%";
+		opt.bScrollCollapse = true;
+		$(window).resize(function(){
+			oTable.fnAdjustColumnSizing();
+		});
+		$(window).load(function(){
+			oTable.fnAdjustColumnSizing();
+		});
+			
+		var oTable = $('.usertable3').dataTable(opt);
+		$('.dataTables_filter input').attr("placeholder", "...");
+		$(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
+			disable_search_threshold: 9999999
+		});
+
+		$("#check_all").click(function(e){
+			$('input', oTable.fnGetNodes()).prop('checked',this.checked);
+		});
+		$.datepicker.setDefaults( {
+			dateFormat: "dd-mm-yy"
+		});
+
+		oTable.columnFilter({
+			"sPlaceHolder" : "head:after",
+			'sRangeFormat': "{from}{to}",
+			'aoColumns': [
+			null,
+			{
+				type: "select",
+				bCaseSensitive:true,
+				values: ['Хаан', 'Хас', 'Голомт']
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "select",
+				bCaseSensitive:true,
+				values: ['Батлагдсан', 'Хүлээгдэж байгаа', 'Шинэ']
+			}
+			]
+		});
+		$(".usertable3").css("width", '100%');
+		
+	}
+
+	if($(".usertable4").length > 0){
+		var opt2 = {
+			"sPaginationType": "full_numbers",
+			"iDisplayLength" : 50,
+			"oLanguage":{
+				"sSearch": "<span>Хайлт:</span> ",
+				"sInfo": " <span>_START_</span> -c <span>_END_</span> нийт <span>_TOTAL_</span> мэдээлэл байна",
+				"sLengthMenu": "_MENU_ <span>хуудасны хэмжээ</span>"
+			},
+			'sDom': "lfrtip",
+			'aoColumnDefs' : [
+			{ 'bSortable': true, 'aTargets': [0,10] }
+			],
+			'oColVis': {
+				"buttonText": "Change columns <i class='icon-angle-down'></i>"
+			},
+			'oTableTools' : {
+				"sSwfPath": "js/plugins/datatable/swf/copy_csv_xls_pdf.swf"
+			}
+		};
+
+		opt2.sScrollX = "100%";
+		opt2.bScrollCollapse = true;
+		$(window).resize(function(){
+			oTable.fnAdjustColumnSizing();
+		});
+		$(window).load(function(){
+			oTable.fnAdjustColumnSizing();
+		});
+			
+		var oTable = $('.usertable4').dataTable(opt);
+		$('.dataTables_filter input').attr("placeholder", "...");
+		$(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
+			disable_search_threshold: 9999999
+		});
+
+		$("#check_all").click(function(e){
+			$('input', oTable.fnGetNodes()).prop('checked',this.checked);
+		});
+		$.datepicker.setDefaults( {
+			dateFormat: "dd-mm-yy"
+		});
+
+		oTable.columnFilter({
+			"sPlaceHolder" : "head:after",
+			'sRangeFormat': "{from}{to}",
+			'aoColumns': [
+			null,
+			{
+				type: "select",
+				bCaseSensitive:true,
+				values: ['Цагаандэнс1', 'Цагаандэнс2']
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "date-range"
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "text",
+			},
+			{
+				type: "select",
+				bCaseSensitive:true,
+				values: ['Батлагдсан', 'Хүлээгдэж байгаа', 'Шинэ']
+			}
+			]
+		});
+		$(".usertable3").css("width", '100%');
+		
+	}
 
 	var $left = $("#left");
 

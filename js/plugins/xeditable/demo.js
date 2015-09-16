@@ -11,15 +11,14 @@ $(function(){
         name: '1',
         url: 'edit_graphic.php',
         display: function(value, response) {
-        //render response into element
-        var m = moment().format("YYYY-MM-DD");
-        $(this).html(value);
-        $(this).closest("p").text(m);
-        //$(“input”).attr(“disabled”, true);
+            //render response into element
+            var m = moment().format("YYYY-MM-DD");
+            $(this).html(value);
+            $(this).closest("p").text(m);
+            //$(“input”).attr(“disabled”, true);
         }
     });
-
-    $('#pay2 a').editable({
+    $('#loss a').editable({
         name: '2',
         url: 'edit_graphic.php',
         display: function(value, response) {
@@ -31,7 +30,7 @@ $(function(){
         }
     });
 
-    $('#pay3 a').editable({
+    $('#rate a').editable({
         name: '3',
         url: 'edit_graphic.php',
         display: function(value, response) {
@@ -41,6 +40,30 @@ $(function(){
         //$(“input”).attr(“disabled”, true);
         }
     });
+
+    $('#due_pay a').editable({
+        name: '4',
+        url: 'edit_graphic.php',
+        display: function(value, response) {
+        //render response into element
+        $(this).html(value);
+        //$(this).closest("td").next().text(re);
+        //$(“input”).attr(“disabled”, true);
+        }
+    });
+    $('#vacation a').editable({
+        name: '5',
+        url: 'edit_graphic.php',
+        display: function(value, response) {
+            //render response into element
+            var m = moment().format("YYYY-MM-DD");
+            $(this).html(value);
+            $(this).closest("p").text(value);
+            console.log(response);
+            //$(“input”).attr(“disabled”, true);
+        }
+     });  
+
 
    
 });

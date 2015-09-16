@@ -25,7 +25,7 @@
 								<a href="#fifth" data-toggle='tab'><i class="icon-edit"></i> Бусад</a>
 							</li>
 							<li class='active'>
-								<a href="#sixth" data-toggle='tab' onclick="summary();"><i class="icon-ok"></i> Нэгтгэл</a>
+								<a href="#sixth" data-toggle='tab'><i class="icon-ok"></i> Нэгтгэл</a>
 							</li>
 						</ul>
 					</div>
@@ -314,85 +314,91 @@
 										<div class="row-fluid">
 											<div class="span12">
 												<div class='form-horizontal form-column form-bordered'>
-													<div class="span6">
+													<div class="span5">
 														<div class="control-group">
 															<label for="textfield" class="control-label">Нэр</label>
 															<div class="controls">
-																<input type="text" name="name_a" id="name_a" class="input-xlarge" value="{{loan.name}}" disabled>
+																<h5 name="name_a" id="name_a">{{loan.name}} </h5>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Утас</label>
 															<div class="controls">
-																<input type="text" name="mobile_a" id="mobile_a" class="input-xlarge" value="{{loan.phone_number}}" disabled>
+																<h5 name="mobile_a" id="mobile_a">{{loan.phone_number}} </h5>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Барьцаа</label>
 															<div class="controls">
-																<input type="text" name="mortage_a" id="mortage_a" class="input-xlarge" value="{{loan.mortage_type}}" disabled>
+																<h5 name="mortage_a" id="mortage_a">{{loan.mortage_type}} </h5>
 															</div>
 														</div>
 														<div class="control-group">
 															<label class="control-label">Зээл</label>
 															<div class="controls">
-																<input type="text" name="loan_total_a" id="loan_total_a" class="input-xlarge"  value="{{loan.loan_amount}}" disabled data-rule-required="true"> 
+																<h5 name="loan_total_a" id="loan_total_a">{{loan.loan_amount}} </h5>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textarea" class="control-label">Хүү</label>
 															<div class="controls">
-																<input type="text" name="rate_a" id="rate_a" class="input-xlarge" value="{{loan.rate}}" disabled >
+																<h5 name="rate_a" id="rate_a">{{loan.rate}}%</h5>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Хугацаа</label>
+															<div class="controls">
+																<h5 name="duration_a" id="duration_a">{{loan.duration}} сар</h5>
 															</div>
 														</div>
 														
 													</div>
 													<div class="span6">
 														<div class="control-group">
-															<label for="textfield" class="control-label">Эргэн төлөх</label>
+															<label for="textfield" class="control-label">Нийт</label>
 															<div class="controls">
-																<input type="text" name="type_a" id="type_a" class="input-xlarge" disabled>
+																<h5> {{loan.loan_amount+loan.rate_total }}</h5>
 															</div>
 														</div>
 														<div class="control-group">
-															<label for="textfield" class="control-label">Сарын төлбөр</label>
+															<label for="textfield" class="control-label">Төлсөн</label>
 															<div class="controls">
-																<input type="text" name="daily_rate" id="daily_rate" class="input-xlarge" disabled>
+																<h5> {{loan.paid_amount}}</h5>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Алданги</label>
+															<div class="controls">
+																<h5> {{loan.loss}}</h5>
+															</div>
+														</div>
+														<div class="control-group">
+															<label for="textfield" class="control-label">Үлдэгдэл</label>
+															<div class="controls">
+																<h5> {{loan.left_amount}}</h5>
 															</div>
 														</div>
 														<div class="control-group">
 															<label for="textfield" class="control-label">Нийт хүү</label>
 															<div class="controls">
-																<input type="text" name="register_a" id="register_a" class="input-xlarge" disabled>
+																<h5> {{loan.rate_total}}</h5>
 															</div>
 														</div>
 														<div class="control-group">
-															<label for="textfield" class="control-label">Эхлэх огноо</label>
+															<label for="textfield" class="control-label">Төлөв</label>
 															<div class="controls">
-																<input type="text" name="start_a" id="start_a" class="input-xlarge" value="{{loan.start}}" disabled>
+																<select name="status" id="status" class='input-medium' data-rule-required="true">
+																	<option value="1" {% if loan.status==1 %} selected {% endif %}>Шинэ</option>
+																	<option value="2" {% if loan.status==2 %} selected {% endif %}>Энгийн</option>
+																	<option value="3"{% if loan.status==3 %} selected {% endif %}>Алдангитай</option>
+																</select>
 															</div>
 														</div>
-														<div class="control-group">
-															<label for="textfield" class="control-label">Хугацаа</label>
-															<div class="controls">
-																<input type="text" name="duration_a" id="duration_a" class="input-xlarge"  value="{{loan.duration}}"disabled>
-															</div>
-														</div>
-														
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="control-group">
-											<label for="textfield" class="control-label">Төлөв</label>
-											<div class="controls">
-												<select name="status" id="status" class='input-large' data-rule-required="true">
-													<option value="1" {% if loan.status==1 %} selected {% endif %}>Шинэ</option>
-													<option value="2" {% if loan.status==2 %} selected {% endif %}>Энгийн</option>
-													<option value="3"{% if loan.status==3 %} selected {% endif %}>Алдангитай</option>
-												</select>
-											</div>
-										</div>
+										
 										<div class="form-actions">
 											<button type="button" class="btn btn-primary" onclick="sender();" id ="send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
 											<button type="button" class="btn btn-satgreen" onclick="dashboard();" id="cancel" style="display:none"><i class="icon-ok"></i>Зээлийн листруу буцах </button>
@@ -402,77 +408,107 @@
 										<div id="warnings">
 
 										</div>
-										<div id="grafik">
-											<div class="row-fluid">
-												<div class="span12">
-													<div class="box">
-														<div class="box-title">
-															<h3>
-																<i class="icon-table"></i>
-																График төлөлт
-															</h3>
-														</div>
-														<div class="box-content nopadding">
-															<table class="table table-bordered dataTable dataTable-scroll-x">
-																<thead>
-																	<tr>
-																		<th class='with-checkbox'>#</th>
-																		<th>Төлөх огноо</th>
-																		<th class='hidden-350'>Сарын төлбөр</th>
-																		<th class='hidden-1024'>Хүү</th>
-																		<th class='hidden-480'>Үндсэн өр</th>
-																		<th class='hidden-480'>Эцсийн vлдэгдэл</th>
-																		<th class='hidden-480'>Алданги хоног</th>
-																		<th class='hidden-480'>Алданги</th>
-																		<th class='hidden-480'>Төлбөл зохих</th>
-																		<th class='hidden-480'>Эргэн төлөлт #1</th>
-																		<th class='hidden-480'>Эргэн төлөлт #2</th>
-																		<th class='hidden-480'>Эргэн төлөлт #3</th>
-																		<th class='hidden-480'>Үлдэгдэл</th>
-																		<th class='hidden-480'></th>
-																	</tr>
-																</thead>
-																<tbody id="grafik-unit">
-																	{% for graphic in graphics %}
-																		<tr>
-																			<td>{{loop.index}}</td>
-																			<td>{{graphic.date}}</td>
-																			<td>{{graphic.pay_amount}}</td>
-																			<td>{{graphic.rate_amount}}</td>
-																			<td>{{graphic.normal_amount}}</td>
-																			<td>{{graphic.left_amount}}</td>
-																			<td>{{graphic.loss_day}}</td>
-																			<td>{{graphic.loss_amount}}</td>
-																			<td>{{graphic.due_pay}}</td>
-																			{% if graphic.status == 1 %}
-																				<td id="pay1"><strong>{{graphic.paid_amount1}}</strong> <br> {{graphic.pay_date1}}</td>
-																				<td id="pay2"><strong>{{graphic.paid_amount2}}</strong> <br> {{graphic.pay_date2}}</td>
-																				<td id="pay3"><strong>{{graphic.paid_amount3}}</strong> <br> {{graphic.pay_date3}}</td>
-																				<td>{{graphic.not_paid}}</td>
-																				<td><a id="approve" type="button" disabled class="btn btn-satgreen" name="{{graphic.objectId}}" ><i class="icon-ok"></i></a> </td>
-																			{% else %}
-																				<td id="pay1"><a id="pay_a" href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #1">{{graphic.paid_amount1}} </a> <br> {{graphic.pay_date1}}</td>
-																				<td id="pay2"><a id="pay_b" href="#" name="b_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="right" data-original-title="Эргэн төлөлт #2">{{graphic.paid_amount2}}</a> <br> {{graphic.pay_date2}}</td>
-																				<td id="pay3"><a id="pay_c" href="#" name="c_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="top" data-original-title="Эргэн төлөлт #3">{{graphic.paid_amount3}}</a> <br> {{graphic.pay_date3}}</td>
-																				<td>{{graphic.not_paid}}</td>
-																				<td><button id="approve" type="button" class="btn" name="{{graphic.objectId}}" ><i class="icon-refresh"></i></button> </td>
-																			{% endif %}
-																		</tr>
-																	{% endfor %}
-																</tbody>
-															</table>
-														</div>
-														<br />
-													</div>
-												</div>
-											</div>
-										</div>
+										
 									</div>									
 								</div>
 							</div>
 						</div>
 					</form>
-
+					<div id="grafik">
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="box">
+									<div class="box-title">
+										<h3>
+											<i class="icon-table"></i>
+											График төлөлт
+										</h3>
+									</div>
+									<div class="box-content nopadding">
+										<table class="table table-bordered dataTable dataTable-scroll-x">
+											<thead>
+												<tr>
+													<th class='with-checkbox'>#</th>
+													<th>Төлөх</th>
+													<th >Төлбөр</th>
+													<th >Хүү</th>
+													<th >Үндсэн өр</th>
+													<th >ЭҮ</th>
+													<th>АХ</th>
+													<th >Алданги</th>
+													<th >Авлага</th>
+													<th >ЭТ</th>
+													<th >Огноо</th>
+													<th >Үлдэгдэл</th>
+													<th ></th>
+												</tr>
+											</thead>
+											<tbody id="grafik-unit">
+												{% for graphic in graphics %}
+													<tr {% if graphic.early_pay==1 %} style="background-color:orange" {% endif %}>
+														<td>{{loop.index}}</td>
+														<td>{{graphic.date}}</td>
+														<td>{{graphic.pay_amount}}</td>
+														<td id="rate">
+															{% if graphic.status != 1 %}
+															<a id ="rate_d" href="#"  name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="bottom" data-original-title="Сарын хүү өөрчлөх?" disabled ><strong>{{graphic.rate_amount}}</strong> <br> {{graphic.rate_handled_date}}</a>
+															{% else %}
+															<strong>{{graphic.rate_amount}}</strong> <br> {{graphic.rate_handled_date}}
+															{% endif %}
+															</td>
+														<td>{{graphic.normal_amount}}</td>
+														<td>{{graphic.left_amount}}</td>
+														<td>{{graphic.loss_day}}</td>
+														<td id="loss">
+															{% if graphic.status != 1 %}
+															<a href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="bottom" data-original-title="Сарын алданги өөрчлөх?"><strong>{{graphic.loss_amount}} </strong><br> {{graphic.loss_handled_date}}</a>
+															{% else %}
+															<strong>{{graphic.loss_amount}} </strong><br> {{graphic.loss_handled_date}}
+															{% endif %}
+															</td>
+														<td id="due_pay">
+															{% if graphic.status != 1 %}
+															<a href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="bottom" data-original-title="Сарын төлөлт өөрчлөх?"><strong>{{graphic.due_pay}}</strong> <br> {{graphic.due_pay_handled_date}}</a>
+															{% else %}
+															<strong>{{graphic.due_pay}}</strong> <br> {{graphic.due_pay_handled_date}}
+															{% endif %}
+															</td>
+														{% if graphic.status == 1 %}
+															<td id="pay1"><strong>{{graphic.paid_amount1}}</strong> <br> {{graphic.pay_date1}}</td>
+															<td>{{graphic.pay_date1}}</td>
+															<td>{{graphic.not_paid}}</td>
+															<td><a id="approve" type="button" disabled class="btn btn-satgreen next" name="{{graphic.objectId}}" ><i class="icon-ok"></i></a> </td>
+														{% else %}
+															<td id="pay1"><a id="pay_a" href="#" name="a_{{graphic.objectId}}" data-type="text" data-pk="{{graphic.objectId}}" data-placement="bottom" data-original-title="Эргэн төлөлт #1">{{graphic.paid_amount1}} </a> </td>
+															<td id="vacation"><a href="#" name="b_{{graphic.objectId}}" data-type="date" data-viewformat="yyyy-mm-dd" data-pk="{{graphic.objectId}}" data-placement="left" data-original-title="Эргэн төлөлтийн огноо?">{{graphic.pay_date1}}</a></td>
+															<td>{{graphic.not_paid}}</td>
+															<td><button id="approve" type="button" class="btn next" name="{{graphic.objectId}}" ><i class="icon-refresh"></i></button> </td>
+														{% endif %}
+													</tr>
+												{% endfor %}
+													<tr style="background-color:#eee">
+														<td>&Sigma;</td>
+														<td></td>
+														<td>{{loan.loan_amount+loan.rate_total }}</td>
+														<td>{{loan.rate_total}}</td>
+														<td></td>
+														<td></td>
+														<td>{{graphic.loss_day}}</td>
+														<td>{{loan.loss}}</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td>{{loan.left_amount}}</td>
+														<td></td>
+													</tr>
+											</tbody>
+										</table>
+									</div>
+									<br />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -491,14 +527,15 @@
 		 }
 		 
 		 $('.next').click(function(){
-		 	
 		 	if (confirm('Та энэ төлбөрийг баталгаажуулах гэж байна. Энэхүү үйлдэлийг буцааж болохгүйг анхаарна уу!')) {
+				
 				var graphId = $(this).attr("name");
+				console.log(graphId);
 				$el = $(this);
 				$(this).prop("disabled",true);
 				$(this).find("i").addClass("icon-spin");
 				$.post("edit_graphic.php", {
-                name : 4,
+                name : 6,
                 value : graphId,
                 pk: graphId
                 }, function (result) {
@@ -507,6 +544,7 @@
                 		$el.find("i").removeClass("icon-spin");
 	                	$el.find("i").removeClass("icon-refresh");
 	                	$el.find("i").addClass("icon-ok");
+
 						$.gritter.add({
 							title: 'Системийн мэдээлэл',
 							text: 	'Амжилттай',
@@ -525,9 +563,7 @@
                 	}	
             });
 				 
-
 			} else {
-				
 			}
 			
 		});
@@ -722,7 +758,9 @@
 	<script src="js/moment.min.js"></script>
 	<!-- XEditable -->
 	<script src="js/plugins/momentjs/jquery.moment.js"></script>
+	<script src="js/plugins/mockjax/jquery.mockjax.js"></script>
 	<script src="js/plugins/xeditable/bootstrap-editable.min.js"></script>
 	<script src="js/plugins/xeditable/demo.js"></script>
+	<script src="js/plugins/xeditable/address.js"></script>
 	
 {% endblock %}

@@ -21,6 +21,7 @@
     $app_id = 'GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr';
     $rest_key = 'UTtaIElx7BCxftei5meS1GB8uk1T3wrKSrmEg21K';
     $master_key = 'wr6tBzUnsPEjgowX0LHaYA20ggme2KsJZH8AYjuk';
+
     ParseClient::initialize( $app_id, $rest_key, $master_key );
     ParseClient::setStorage( new ParseSessionStorage() );
 
@@ -30,8 +31,8 @@
     
     try {
         $user1 = ParseUser::logIn($email, $pw);
-        session_start();
+        $_SESSION['user'] = $user;
     } catch (ParseException $ex) {  
-        echo 0;
+        echo $ex;
     }
 ?>

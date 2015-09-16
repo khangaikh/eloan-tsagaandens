@@ -100,23 +100,129 @@
             //render a template
             echo $template->render(array('title' => 'Нэвтрэх'));  
         }
+        else if($_GET["cid"]==6){
+            $template = $twig->loadTemplate('bank.html');
+            //render a template
+            echo $template->render(array('title' => 'Нийт гүйлгээ'));  
+        }
         else{
-            $template = $twig->loadTemplate('edit_loan.html');
+           
+            //Database operations
+            
+            $query = new ParseQuery("loss");
+            $query->equalTo("objectId",'7hOOm7UuHu');
+            $loss = $query->first();
+            $daily_loss = $loss ->get('daily_loss');
+
             $query = new ParseQuery("loan");
             $query->equalTo("objectId",$_GET["cid"]);
-            $results = $query->first();
-            $id=$results->get("customer")->getObjectId();
+            $loan = $query->first();
+
+            $id = $loan->get("customer")->getObjectId();
             $query = new ParseQuery("customer");
             $query->equalTo("objectId", $id);
             $customer = $query->first();
 
             $query = new ParseQuery("grafiks");
-            $query->equalTo("loan", $results);
+            $query->equalTo("loan", $loan);
             $query->ascending("step");
             $graphics = $query->find();
 
-            //render a template
-            echo $template->render(array('title' => 'Зээл дэлгэрэнгүй', 'loan' => $results, 'customer' => $customer, 'graphics'=> $graphics));  
+            date_default_timezone_set('Asia/Ulaanbaatar');
+            
+            $today = new DateTime();
+            $total_due = 0;
+            $total_paid = 0;
+            $total_loss = 0;
+            $total_left = 0;
+
+            $early_pay = 0;
+
+            foreach($graphics as $graph){
+
+                
+                $pay_amount = $graph->get('pay_amount');
+                $total_due = $total_due +  $pay_amount;
+
+                $paid_amount = $graph->get('paid_amount1');
+                $total_paid =  $total_paid +  $paid_amount;
+
+                $loss = $graph->get('loss_amount');
+                $total_loss =  $total_loss +  $loss;
+
+                $date = $graph->get('date');
+                $dEnd = new DateTime($date);
+                
+                if($graph->get('status')!=1) {
+                    if($today>$dEnd){
+                        $dDiff = $today->diff($dEnd);
+                        $days = $dDiff->days;
+                        $graph->set("loss_day",$days);
+                        $loss_handler =  $graph->get("loss_handled");
+                        if($loss_handler && $loss_handler != 1){
+                            $left_amount = $graph->get('left_amount');
+                            $loss_amount = round(($left_amount * ($daily_loss / 100) * $days),2);
+                            $due_pay = $graph->get('rate_amount') + $loss_amount + $graph->get('normal_amount');
+                            $graph->set("loss_amount",$loss_amount);
+                            $is_due_pay_set = $graph->get("due_pay_handled");
+                            if($is_due_pay_set && $is_due_pay_set!=1){
+                                $graph->set("due_pay", $due_pay );
+                            }
+                            $graph->save();
+                        }else{
+                            $due_pay = $graph->get('pay_amount') + $graph->get('loss_amount');
+                            $graph->set("due_pay", $due_pay );
+                            $graph->save();
+                        }
+                    }else{
+                        $graph->set("loss_day",0);
+                    }
+                }
+
+                if($early_pay==1){
+                    $graph->set('early_pay',1);
+                    $early_pay = 0;
+                    $early_rate = $graph->get("rate_amount")/2;
+                    $graph->set("rate_amount", $early_rate );
+                    $due_pay = ($graph->get('rate_amount')/2) + $loss_amount + $graph->get('normal_amount');
+                    $graph->set("due_pay", $due_pay );
+                }
+
+                $paid_date = $graph->get('pay_date1');
+                if($paid_date!=null){
+                    $dStart = new DateTime($paid_date);
+                    $dEarly = $dStart->diff($dEnd);
+                    $isEarly =  $dEarly->days;
+                    if($isEarly<=15){
+                        $early_pay = 1;
+                    } 
+                }
+                
+
+                $paid = $graph->get('paid_amount1');
+                $due = $graph->get('due_pay');
+                $left = $due - $paid;
+                $total_left = $total_left + $left;
+                $graph->set("not_paid", $left);
+                try {
+                    $graph->save();
+                } catch (ParseException $ex) {  
+                    // Execute any logic that should take place if the save fails.
+                    // error is a ParseException object with an error code and message.
+                    echo 'Failed to create new object, with error message: ' . $ex->getMessage();
+                }       
+            }
+
+            $loan->set('paid_amount', $total_paid);
+            $loan->set('loss', $total_loss);
+            $loan->set('left_amount', $total_left);
+            $loan_amount = $loan->get('loan_amount');
+            $rate_total = $total_due - $loan_amount;
+            $loan->set('rate_total', $rate_total);
+            $loan->save();
+            //Render a template Twig
+            $template = $twig->loadTemplate('edit_loan.html');
+            echo $template->render(array('title' => 'Зээл дэлгэрэнгүй', 'loan' => $loan, 'customer' => $customer, 'graphics'=> $graphics));  
         }
         }
     }else{

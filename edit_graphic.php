@@ -23,60 +23,77 @@
     $query->equalTo("objectId",$pk);
     $graphic = $query->first();
     $due =  $graphic -> get("due_pay");
-    $today = date("Y-m-d");   
+    $today = date("Y-m-d");
 
     if($pay == 1){
       $left = $due - $value;
       $graphic -> set("paid_amount1",(double)$value);
       $graphic -> set("not_paid",(double)$left);
-      $graphic -> set("pay_date1",$today);
-
+      $graphic -> set("repay",1);
       try {
         $graphic->save();
-        echo $left;
       } catch (ParseException $ex) {  
         // Execute any logic that should take place if the save fails.
         // error is a ParseException object with an error code and message.
         echo 'Failed to create new object, with error message: ' . $ex->getMessage();
       }
-    }else if($pay==2){
-      $paid1 =  $graphic -> get("paid_amount1");
-      $left = $due - ($value+$paid1);
-      $graphic -> set("paid_amount2",(double)$value);
-      $graphic -> set("not_paid",(double)$left);
-      $graphic -> set("pay_date2",$today);
+    }
+    if($pay==2){
+
+      $graphic -> set("loss_amount",(double)$value);
+      $graphic -> set("loss_handled",1);
+      $graphic -> set("loss_handled_date",$today);
 
       try {
         $graphic->save();
-        echo $left;
       } catch (ParseException $ex) {  
         // Execute any logic that should take place if the save fails.
         // error is a ParseException object with an error code and message.
         echo 'Failed to create new object, with error message: ' . $ex->getMessage();
       }
 
-    }else if($pay==3){
-      $paid1 =  $graphic -> get("paid_amount1");
-      $paid2 =  $graphic -> get("paid_amount2");
-      $left = $due - ($value+$paid1+$paid2);
-      $graphic -> set("paid_amount3",(double)$value);
-      $graphic -> set("not_paid",(double)$left);
-      $graphic -> set("pay_date3",$today);
+    }
+    if($pay==3){
+      $graphic -> set("rate_amount",(double)$value);
+      $graphic -> set("rate_handled",1);
+      $graphic -> set("rate_handled_date",$today);
 
       try {
         $graphic->save();
-        echo $left;
       } catch (ParseException $ex) {  
         // Execute any logic that should take place if the save fails.
         // error is a ParseException object with an error code and message.
         echo 'Failed to create new object, with error message: ' . $ex->getMessage();
       }
-    }else if($pay==4){
-      $graphic -> set("status",1);
-
+    }
+    if($pay==4){
+      $graphic -> set("due_pay",(double)$value);
+      $graphic -> set("due_pay_handled",1);
+      $graphic -> set("due_pay_handled_date",$today);
+      try {
+        $graphic->save();
+      } catch (ParseException $ex) {  
+        // Execute any logic that should take place if the save fails.
+        // error is a ParseException object with an error code and message.
+        echo 0;
+      }
+    }
+    if($pay==5){
+      $graphic -> set("pay_date1",$value);
       try {
         $graphic->save();
         echo 1;
+      } catch (ParseException $ex) {  
+        // Execute any logic that should take place if the save fails.
+        // error is a ParseException object with an error code and message.
+        echo 0;
+      }
+    }
+    if($pay==6){
+      $graphic -> set("status",1);
+      echo 1;
+      try {
+        $graphic->save();
       } catch (ParseException $ex) {  
         // Execute any logic that should take place if the save fails.
         // error is a ParseException object with an error code and message.
