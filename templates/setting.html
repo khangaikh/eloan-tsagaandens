@@ -2,7 +2,7 @@
 {% block content %}
 	<div class="row-fluid">
 		<div class="span12">
-			<div class="box box-bordered box-color">
+			<div class="box box-bordered">
 				<div class="box-title">
 					<h3><i class="icon-reorder"></i> Тохиргоо</h3>
 				</div>
@@ -143,31 +143,62 @@
 							<div class="tab-pane" id="third">
 								<div class="row-fluid">
 									<div class="span12">
-										<p>Энэ модул хаалттай байна. 88021087 лавлана уу!</p>
-										<br>
-										<br>
-										<br>
-									</div>
+											<h4>
+												<i class="icon-group"></i>
+												Хэрэглэгчийн бүртгэл
+											</h4>
+											<table class="table table-hover table-nomargin dataTable">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Нэр</th>
+														<th>Нууц үг</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody id="users">
+													{% for user in users%}
+														<tr>
+															<td>{{loop.index}}</td>
+															<td>
+																<span name="{{user.objectId}}">{{user.username}}</span>
+				                                       			<input class="input-medium" value="{{user.username}}"  name="{{user.objectId}}" style="display:none"/>
+				                                       		</td>
+															<td>
+																<span name="{{user.objectId}}">********</span>
+				                                       			<input class="input-medium" value="{{user.password}}"  name="{{user.objectId}}" style="display:none"/>
+															</td>
+															<td><button type="button" class="btn btn-primary btn btn-red" style="display:none" onclick="cancel('{{user.objectId}}');" edit="{{user.objectId}}" rel="tooltip" title="Болих" data-placement="bottom" ><i class="icon-remove"></i> </button>
+				                                       			<button type="button" class="btn btn-primary btn btn-green" onclick="user_edit('{{user.objectId}}',this);" style="display:none" edit="{{user.objectId}}" rel="tooltip" title="Хадгалах" data-placement="bottom"><i class="icon-refresh"></i> </button>
+				                                       			<button type="button" class="btn btn-primary" onclick="edit('{{user.objectId}}');" name="{{user.objectId}}"><i class="icon-edit" rel="tooltip" title="Засварлах" data-placement="bottom"></i> </button>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+									</div>	
 								</div>
 							</div>
 							<div class="tab-pane" id="fourth">
 								<div class="row-fluid">
 									<div class="span12">
-										<div class='form-horizontal form-column form-bordered form-validate'  enctype='multipart/form-data'>
+										<div class=' form-column form-bordered'>
 											<div class="control-group">
 												<label for="textfield" class="control-label">Эхний үлдэгдэл харилцах</label>
-												<input id="income" class="control-label" name="income" placeholder="Эхний үлдэгдэл" />
+												<input id="bank" class="input-large" name="bank" placeholder="Эхний үлдэгдэл" value="{{inits.bank_init}}" />
 											</div>
 											<div class="control-group">
 												<label for="textfield" class="control-label">Эхний үлдэгдэл касс</label>
-												<input id="income" class="control-label" name="income" placeholder="Эхний үлдэгдэл" />
+												<input id="cash" class="input-large" name="cash" placeholder="Эхний үлдэгдэл" value="{{inits.cash_init}}" />
 											</div>
 
 											<div class="form-actions">
-													<button type="button" class="btn btn-primary" onclick="loan();" id ="loan_send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
+													<button type="button" class="btn btn-primary" onclick="initials();" id ="init_send" ><i class="icon-refresh"></i> Засвар хадгалах</button>
 													<button type="button" class="btn btn-satgreen" onclick="dashboard();" id="cancel"><i class="icon-ok"></i>Зээлийн листруу буцах </button>
-												</div>
+													<h5> Оруулсан : {{inits.createdAt|date('Y-m-d')}}</h5>
+													<h5> Сүүлд өөрчилсөн : {{inits.updatedAt|date('Y-m-d')}}</h5>
+											</div>
 									</div>
+
 								</div>
 								</div>
 							</div>
@@ -180,10 +211,67 @@
 {% block footer %}
 	{{parent()}}
 	<script type="text/javascript">
-        function dashboard(){
-        	location.reload();
-        }
+		function edit(id){
 
+				$('span[name='+id+']').each(function (index, value) {
+	                   $(this).hide();
+	                   
+		         })
+				$('button[name='+id+']').hide();
+				$('button[delete='+id+']').hide();
+				$('button[edit='+id+']').each(function (index, value) {
+	                   $(this).show();
+	                   
+		         })
+				$('input[name='+id+']').each(function (index, value) {
+	                   $(this).show();
+
+		         })		
+		}
+		function cancel(id){
+			
+			$('span[name='+id+']').each(function (index, value) {
+                   $(this).show();
+                   
+	         })
+			$('button[name='+id+']').show();
+			$('button[delete='+id+']').show();
+			$('button[edit='+id+']').each(function (index, value) {
+                   $(this).hide();
+                   
+	         })
+			$('input[name='+id+']').each(function (index, value) {
+                   $(this).hide();
+
+	         })
+		}
+        function dashboard(){
+        	window.location.replace("index.php");
+        }
+        function initials() {
+			var bank = $("#bank").val();
+			var cash = $("#cash").val();
+			
+
+	        $el = $("#init_send");
+		    $el.find("i").addClass("icon-spin");
+		    $el.removeClass("btn-primary");
+		    $el.addClass("btn-warning");
+		    $el.prop('disabled', true);
+            $.post("init_update.php", {
+                bank : bank,
+                cash: cash
+                }, function (result) {
+                $el.find("i").removeClass("icon-spin");
+				$.gritter.add({
+					title: 'Бүртгэл амжилттай',
+					text: 	result,
+					image: 	null,
+					sticky: true,
+					time: 	3000
+				});
+            });
+        }
         function loss() {
 			var daily = $("#daily_rate").val();
 			var monthly = $("#monthly_rate").val();

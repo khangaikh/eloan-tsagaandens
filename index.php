@@ -82,9 +82,13 @@
             $query = new ParseQuery("loan_rates");
             $query->equalTo("status",1);
             $rates = $query->find();
+            $query = new ParseQuery("_User");
+            $users = $query->find();
+            $query = new ParseQuery("configs");
+            $inits = $query->first();
     
             //render a template
-            echo $template->render(array('title' => 'Үндсэн тохиргоо','loss' => $loss,"types" => $types, "rates" => $rates));  
+            echo $template->render(array('title' => 'Үндсэн тохиргоо','loss' => $loss,"types" => $types, "rates" => $rates, "users" => $users,'inits' =>$inits));  
         }
         else if($_GET["cid"]==4){
            $template = $twig->loadTemplate('customer.html');

@@ -463,7 +463,7 @@ createSubNav();
     $(".content-slideUp").click(function (e) {
         e.preventDefault();
         var $el = $(this),
-        content = $el.parents('.box').find(".box-content");
+       content = $("#user");
         content.slideToggle('fast', function(){
             $el.find("i").toggleClass('icon-angle-up').toggleClass("icon-angle-down");
             if(!$el.find("i").hasClass("icon-angle-up")){
