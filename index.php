@@ -9,7 +9,7 @@
     use Parse\ParseClient;
     use Parse\ParseSessionStorage;
 
-
+    session_start();
     //register autoloader
     Twig_Autoloader::register();
     //loader for template files
@@ -28,8 +28,7 @@
 
     $twig->setCache(false);
 
-    if ($_SESSION['parseData']) { 
-         $_SESSION = "Array ( [parseData] => Array ( [user] => Parse\ParseUser [_sessionToken:protected] => r:LAy74EsFuobzvlAQgmRdF00LV [serverData:protected] => Array ( [username] => admin ) [operationSet:protected] => Array ( ) [estimatedData:Parse\ParseObject:private] => Array ( [username] => admin ) [dataAvailability:Parse\ParseObject:private] => Array ( [sessionToken] => 1 [username] => 1 ) [className:Parse\ParseObject:private] => _User [objectId:Parse\ParseObject:private] => D6C1mdK86t [createdAt:Parse\ParseObject:private] => DateTime Object ( [date] => 2015-08-28 18:56:27.592000 [timezone_type] => 2 [timezone] => Z ) [updatedAt:Parse\ParseObject:private] => DateTime Object ( [date] => 2015-08-28 18:56:27.592000 [timezone_type] => 2 [timezone] => Z ) [hasBeenFetched:Parse\ParseObject:private] => 1 ) ) [count] => 1 ) ";
+
         
         if(!empty($_GET["cusId"])){
             $cus_id = $_GET["cusId"];
@@ -110,9 +109,7 @@
             echo $template->render(array('title' => 'Нийт гүйлгээ'));  
         }
         else{
-           
             //Database operations
-            
             $query = new ParseQuery("loss");
             $query->equalTo("objectId",'7hOOm7UuHu');
             $loss = $query->first();
@@ -229,10 +226,6 @@
             echo $template->render(array('title' => 'Зээл дэлгэрэнгүй', 'loan' => $loan, 'customer' => $customer, 'graphics'=> $graphics));  
         }
         }
-    }else{
-         $template = $twig->loadTemplate('login.html');
-         //render a template
-         echo $template->render(array('title' => 'Нэвтрэх'));
-    }
+ 
 ?>
     

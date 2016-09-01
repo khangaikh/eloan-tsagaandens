@@ -17,7 +17,7 @@
     use Parse\ParseCloud;
     use Parse\ParseSessionStorage;
 
-
+    session_start();
     $app_id = 'GBKoGmSywZrOJPdHzpZnFzfKqoPZ5nOvpfhnseIr';
     $rest_key = 'UTtaIElx7BCxftei5meS1GB8uk1T3wrKSrmEg21K';
     $master_key = 'wr6tBzUnsPEjgowX0LHaYA20ggme2KsJZH8AYjuk';
